@@ -58,11 +58,11 @@
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
-        <!--li class="nav-item {{preg_match('/influencer/',\Request::route()->getName()) ? 'active' : ''}}">
+        <li class="nav-item {{preg_match('/influencer/',\Request::route()->getName()) ? 'active' : ''}}">
             <a class="nav-link" href="{{route('influencers.index')}}">
           <i class="fas fa-user fa-sm fa-fw"></i>
           <span>Influenceurs</span></a>
-        </li-->
+        </li>
 
         <!-- Heading -->
         <div class="sidebar-heading">

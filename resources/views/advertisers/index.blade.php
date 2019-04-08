@@ -14,9 +14,9 @@
 </div>
 <br/>
 @if(count($advertisers)>0)
-<div class="table-responsive">
-                                    <table class="table table-striped">
-                                        <thead>
+<div class="table-responsive table-bordered" style="border-radius:10px !important;">
+                                    <table class="table table-striped ">
+                                        <thead > 
                                             <tr>
                                             	<th style="text-align: center;">Identifiant</th>
                                                 <th style="text-align: center;">Nom</th>
