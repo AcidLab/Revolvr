@@ -1,9 +1,14 @@
 @extends('layouts.app')
 @section('content')
+<div class="row">
 
-
-
-
+    <div class="col-md-2 offset-md-10"  style="text-align: center;">
+        <a href="{{route('influencers.create')}}" class="btn btn-primary btn-icon-split" style="width:100%;">
+                    
+                    <span class="text">Créer</span>
+                  </a>
+    </div>
+    </div>
 <div class="row">
 	<div class="col-md-12">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -18,29 +23,14 @@
   </li>
 </ul>
 <div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
-</div>
-	</div>
-	<div class="col-md-4">
-	</div>
-	<div class="col-md-4" style="text-align: center;">
-		<a href="{{route('influencers.create')}}" class="btn btn-primary btn-icon-split" style="width:100%;">
-                    
-                    <span class="text">Ajouter un influenceur</span>
-                  </a>
-	</div>
-</div>
-<br/>
-<br/>
-<h1 class="h3 mb-0 text-gray-800">Influenceurs acceptés</h1>
-@if(count($acceptedDemands)>0)
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+    <div style="margin-top: 30px;">
+    @if(count($acceptedDemands)>0)
 <div class="table-responsive">
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
-                                            	<th style="text-align: center;">Identifiant</th>
+                                                <th style="text-align: center;">Identifiant</th>
                                                 <th style="text-align: center;">Nom</th>
                                                 <th style="text-align: center;">Prénom</th>
                                                 <th style="text-align: center;">Email</th>
@@ -50,14 +40,24 @@
                                         </thead>
                                         <tbody>
                                             @foreach($acceptedDemands as $row)
-                                            	<tr>
-                                            		<td style="text-align: center;"></td>
-                                            		<td style="text-align: center;"></td>
-                                            		<td style="text-align: center;"></td>
-                                            		<td style="text-align: center;"></td>
-                                            		<td style="text-align: center;"></td>
-                                            		<td style="text-align: center;"></td>
-                                            	</tr>
+                                                <tr>
+                                                    <td style="text-align: center;">{{str_pad($row->id, 6, '0' , STR_PAD_LEFT)}}</td>
+                                                    <td style="text-align: center;">{{$row->name}}</td>
+                                                    <td style="text-align: center;">{{$row->fname}}</td>
+                                                    <td style="text-align: center;">{{$row->email}}</td>
+                                                    <td style="text-align: center;">{{$row->phone}}</td>
+                                                    <td style="text-align: center;">
+                                                        <a href="{{route('influencers.edit',$row->id)}}" class="btn btn-primary btn-circle">
+                                                           <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <a href="{{route('influencer.delete',$row->id)}}" class="btn btn-warning btn-circle">
+                                                           <i class="fas fa-trash"></i>
+                                                        </a>
+                                                        <a href="{{route('influencer.bann',$row->id)}}" class="btn btn-danger btn-circle">
+                                                           <i class="fas fa-ban"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -65,15 +65,16 @@
 @else 
 <center>Aucun influenceur accepté</center>
 @endif
-<br/>
-<br/>
-<h1 class="h3 mb-0 text-gray-800">Influenceurs en attentes</h1>
-@if(count($noAcceptedDemands)>0)
+</div>
+  </div>
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+    <div style="margin-top: 30px;">
+      @if(count($noAcceptedDemands)>0)
 <div class="table-responsive">
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
-                                            	<th style="text-align: center;">Identifiant</th>
+                                                <th style="text-align: center;">Identifiant</th>
                                                 <th style="text-align: center;">Nom</th>
                                                 <th style="text-align: center;">Prénom</th>
                                                 <th style="text-align: center;">Email</th>
@@ -82,22 +83,36 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
+                                            @foreach($noAcceptedDemands as $row)
+                                                <tr>
+                                                    <td style="text-align: center;">{{str_pad($row->id, 6, '0' , STR_PAD_LEFT)}}</td>
+                                                    <td style="text-align: center;">{{$row->name}}</td>
+                                                    <td style="text-align: center;">{{$row->fname}}</td>
+                                                    <td style="text-align: center;">{{$row->email}}</td>
+                                                    <td style="text-align: center;">{{$row->phone}}</td>
+                                                    <td style="text-align: center;">
+                                                        <a href="{{route('influencer.accept',$row->id)}}" class="btn btn-success btn-circle">
+                                                           <i class="fas fa-check"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
 </div>
 @else 
 <center>Aucun influenceur en attente</center>
 @endif
-<br/>
-<br/>
-<h1 class="h3 mb-0 text-gray-800">Influenceurs bannés</h1>
-@if(count($bannedDemands)>0)
+</div>
+  </div>
+  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+      <div style="margin-top: 30px;">
+          @if(count($bannedDemands)>0)
 <div class="table-responsive">
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
-                                            	<th style="text-align: center;">Identifiant</th>
+                                                <th style="text-align: center;">Identifiant</th>
                                                 <th style="text-align: center;">Nom</th>
                                                 <th style="text-align: center;">Prénom</th>
                                                 <th style="text-align: center;">Email</th>
@@ -106,11 +121,31 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
+                                            @foreach($bannedDemands as $row)
+                                                <tr>
+                                                    <td style="text-align: center;">{{str_pad($row->id, 6, '0' , STR_PAD_LEFT)}}</td>
+                                                    <td style="text-align: center;">{{$row->name}}</td>
+                                                    <td style="text-align: center;">{{$row->fname}}</td>
+                                                    <td style="text-align: center;">{{$row->email}}</td>
+                                                    <td style="text-align: center;">{{$row->phone}}</td>
+                                                    <td style="text-align: center;">
+                                                        <a href="{{route('influencer.recover',$row->id)}}" class="btn btn-success btn-circle">
+                                                           <i class="fas fa-check"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
 </div>
 @else 
 <center>Aucun influenceur bloqué</center>
 @endif
+      </div>
+  </div>
+</div>
+	</div>
+	
+</div>
+	
 @endsection

@@ -22,8 +22,13 @@ class AdvertisersController extends Controller
     public function index()
     {
         $view = View::make('advertisers.index');
-        $advertisers = User::all();
-        $view->advertisers = $advertisers;
+        $noAcceptedDemands= User::onlyTrashed()->get();
+        $bannedDemands = User::onlyTrashed()->where('banned','=',1)->get();
+        $inWait = User::onlyTrashed()->where('banned','=',null)->get();
+        $acceptedDemands = User::all();
+        $view->noAcceptedDemands = $inWait;
+        $view->acceptedDemands = $acceptedDemands;
+        $view->bannedDemands = $bannedDemands;
         return $view ; 
 
     }
@@ -116,6 +121,8 @@ class AdvertisersController extends Controller
             return Redirect::back()->withInput()->withErrors($v);
             
         }
+
+        else {
             $advertiser->name = $request->input('name');
             $advertiser->fname = $request->input('fname');
             $advertiser->email = $request->input('email');
@@ -125,6 +132,7 @@ class AdvertisersController extends Controller
             $advertiser->tva = $request->input('tva');
             $advertiser->save();
             return Redirect::to(route('advertisers.index'));
+        }
     }
 
     /**
@@ -140,6 +148,35 @@ class AdvertisersController extends Controller
     public function deleteAdvertiser ($id){
         $advertiser = User::find($id);
         $advertiser->delete();
+        return Redirect::to(route('advertisers.index'));
+    }
+
+    public function bannAdvertiser ($id){
+
+        $advertiser = User::find($id);
+        $advertiser->deleted_at = date('Y-m-d');
+        $advertiser->banned = 1 ;
+        $advertiser->save();
+        return Redirect::to(route('advertisers.index'));
+
+    }
+
+    public function recoverAdvertiser ($id){
+
+        $advertiser = User::onlyTrashed()->where([['id','=',$id],['banned','=',1]])->get()[0];
+        $advertiser->deleted_at = null;
+        $advertiser->banned = null;
+        $advertiser->remember_token = null;
+        $advertiser->save();
+        return Redirect::to(route('advertisers.index'));
+
+    }
+
+    public function acceptAdvertiser ($id) {
+        $advertiser = User::onlyTrashed()->where('id','=',$id)->get()[0];
+        $advertiser->deleted_at = null;
+        $advertiser->remember_token = null;
+        $advertiser->save();
         return Redirect::to(route('advertisers.index'));
     }
 }

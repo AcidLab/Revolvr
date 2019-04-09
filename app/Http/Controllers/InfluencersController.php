@@ -16,6 +16,10 @@ class InfluencersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function index()
     {
         $view = View::make('influencers.index');
@@ -36,7 +40,8 @@ class InfluencersController extends Controller
      */
     public function create()
     {
-        //
+        $view = View::make('influencers.create');
+        return $view ; 
     }
 
     /**
@@ -47,7 +52,53 @@ class InfluencersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = array('password' => 'required|string|min:6|confirmed','email' => 'required|string|email|max:255|unique:influencers');
+        $v = Validator::make($request->all(),$rules);
+
+        if ($v->fails()) {
+
+            return Redirect::back()->withInput()->withErrors($v);
+            
+        }
+        else {
+
+            $influencer = new Influencer ; 
+            $influencer->name = $request->input('name');
+            $influencer->fname = $request->input('fname');
+            $influencer->email = $request->input('email');
+            $influencer->password = Hash::make($request->input('password'));
+            $influencer->age = $request->input('age');
+            $influencer->sexe = $request->input('sexe');
+            $influencer->country = $request->input('country');
+            $influencer->city = $request->input('city');
+            $influencer->number_of_subscribers = $request->input('number_of_subscribers');
+            $influencer->commitement_rate = $request->input('commitement_rate');
+            $influencer->views_number_per_story = $request->input('views_number_per_story');
+            $influencer->media = $request->input('media');
+            $influencer->skills = $request->input('skills');
+            $influencer->tags = $request->input('tags');
+            $influencer->complexion = $request->input('complexion');
+            $influencer->hair_color = $request->input('hair_color');
+            $influencer->hair_type = $request->input('hair_type');
+            $influencer->hair_length = $request->input('hair_length');
+            $influencer->eyes_color = $request->input('eyes_color');
+            $influencer->cut = $request->input('cut');
+            $influencer->clothes_cut = $request->input('clothes_cut');
+            $influencer->shoe_size = $request->input('shoe_size');
+            $influencer->animals = $request->input('animals');
+            $influencer->food = $request->input('food');
+            $influencer->driving_license = $request->input('driving_license');
+            $influencer->beauty = $request->input('beauty');
+            $influencer->home = $request->input('home');
+            $influencer->friends = $request->input('friends');
+            $influencer->love_brand = $request->input('love_brand');
+            $influencer->address = $request->input('address');
+            $influencer->phone = $request->input('phone');
+            $influencer->save();
+            return Redirect::to(route('influencers.index'));
+
+
+        }
     }
 
     /**
@@ -69,7 +120,10 @@ class InfluencersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $influencer = Influencer::find($id);
+        $view = View::make('influencers.edit');
+        $view->influencer = $influencer;
+        return $view ; 
     }
 
     /**
@@ -81,7 +135,54 @@ class InfluencersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $influencer =  Influencer::find($id);
+        if($request->input('email') == $influencer->email)
+            {$rules = array('email' => 'required|string|email|max:255');}
+        else
+        {$rules = array('email' => 'required|string|email|max:255|unique:influencers');}
+        
+        $v=Validator::make($request->all(),$rules);
+        if ($v->fails()) {
+
+            return Redirect::back()->withInput()->withErrors($v);
+            
+        }
+        else {
+            $influencer->name = $request->input('name');
+            $influencer->fname = $request->input('fname');
+            $influencer->email = $request->input('email');
+            $influencer->password = Hash::make($request->input('password'));
+            $influencer->age = $request->input('age');
+            $influencer->sexe = $request->input('sexe');
+            $influencer->country = $request->input('country');
+            $influencer->city = $request->input('city');
+            $influencer->number_of_subscribers = $request->input('number_of_subscribers');
+            $influencer->commitement_rate = $request->input('commitement_rate');
+            $influencer->views_number_per_story = $request->input('views_number_per_story');
+            $influencer->media = $request->input('media');
+            $influencer->skills = $request->input('skills');
+            $influencer->tags = $request->input('tags');
+            $influencer->complexion = $request->input('complexion');
+            $influencer->hair_color = $request->input('hair_color');
+            $influencer->hair_type = $request->input('hair_type');
+            $influencer->hair_length = $request->input('hair_length');
+            $influencer->eyes_color = $request->input('eyes_color');
+            $influencer->cut = $request->input('cut');
+            $influencer->clothes_cut = $request->input('clothes_cut');
+            $influencer->shoe_size = $request->input('shoe_size');
+            $influencer->animals = $request->input('animals');
+            $influencer->food = $request->input('food');
+            $influencer->driving_license = $request->input('driving_license');
+            $influencer->beauty = $request->input('beauty');
+            $influencer->home = $request->input('home');
+            $influencer->friends = $request->input('friends');
+            $influencer->love_brand = $request->input('love_brand');
+            $influencer->address = $request->input('address');
+            $influencer->phone = $request->input('phone');
+            $influencer->save();
+            return Redirect::to(route('influencers.index'));
+
+        }
     }
 
     /**
@@ -90,8 +191,36 @@ class InfluencersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteInfluencer($id)
     {
-        //
+        $influencer = Influencer::find($id);
+        $influencer->delete();
+        return Redirect::to(route('influencers.index'));
     }
+
+    public function bannInfluencer($id){
+        $influencer = Influencer::find($id);
+        $influencer->deleted_at = date('Y-m-d');
+        $influencer->banned = 1 ;
+        $influencer->save();
+        return Redirect::to(route('influencers.index'));
+    }
+
+    public function acceptInfluencer($id){
+        $influencer = Influencer::onlyTrashed()->where('id','=',$id)->get()[0];
+        $influencer->deleted_at = null;
+        $influencer->remember_token = null;
+        $influencer->save();
+        return Redirect::to(route('influencers.index'));
+    } 
+
+    public function recoverInfluencer($id){
+
+        $influencer = Influencer::onlyTrashed()->where([['id','=',$id],['banned','=',1]])->get()[0];
+        $influencer->deleted_at = null;
+        $influencer->banned = null;
+        $influencer->remember_token = null;
+        $influencer->save();
+        return Redirect::to(route('influencers.index'));
+    }  
 }
