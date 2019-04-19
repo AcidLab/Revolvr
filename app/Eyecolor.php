@@ -5,11 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Skill extends Model
+class Eyecolor extends Model
 {
     use SoftDeletes;
-
-    	protected $table="skills";
+	
+    	protected $table="eyecolors";
     	protected $dates=['deleted_at'];
     	public $timestamps = true;
 }

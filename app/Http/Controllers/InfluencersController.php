@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Influencer;
+use App\Media ; 
+use App\Skill ; 
 use View;
 use Redirect ; 
 use Validator;
@@ -41,6 +43,8 @@ class InfluencersController extends Controller
     public function create()
     {
         $view = View::make('influencers.create');
+        $view->medias = Media::all();
+        $view->skills = Skill::all();
         return $view ; 
     }
 

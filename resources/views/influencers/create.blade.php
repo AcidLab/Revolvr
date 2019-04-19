@@ -125,7 +125,11 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Media</label>
-	                    			<input type="text" name="media" required class="form-control {{ $errors->has('media') ? ' is-invalid' : '' }}" value="{{old('media')}}" placeholder="Media" />
+	                    			<select class="form-control {{ $errors->has('media') ? ' is-invalid' : '' }}" name="media" required>
+	                    				@foreach($medias as $row)
+	                    					<option value="{{$row->id}}">{{$row->label}}</option>
+	                    				@endforeach
+	                    			</select>
 	                    			@if($errors->has('media'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('media') }}</strong>
@@ -136,7 +140,11 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Skills</label>
-	                    			<input type="text" name="skills" required class="form-control {{ $errors->has('skills') ? ' is-invalid' : '' }}" value="{{old('skills')}}" placeholder="Skills" />
+	                    			<select class="form-control {{ $errors->has('skills') ? ' is-invalid' : '' }}" name="skills" required >
+	                    				@foreach($skills as $row)
+	                    					<option value="{{$row->id}}">{{$row->label}}</option>
+	                    				@endforeach
+	                    			</select>
 	                    			@if($errors->has('skills'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('skills') }}</strong>
