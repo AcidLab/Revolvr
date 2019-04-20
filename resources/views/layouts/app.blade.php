@@ -27,6 +27,7 @@
             margin-bottom: 12px !important;
         }
     </style>
+    @yield('css-includes')
 
 </head>
 
@@ -412,7 +413,6 @@
 <script src="https://static.opentok.com/v2/js/opentok.js"></script>
 <script src="https://js.pusher.com/4.3/pusher.min.js"></script>
 
-
 <script>
     let myAudio = new Audio('/vintage2.mp3');
 
@@ -450,10 +450,11 @@
             myAudio.play();
 
         });
+       
     });
 
 </script>
-
+@yield('js-includes')
 </body>
 
 </html>

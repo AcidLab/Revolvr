@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('css-includes')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+@endsection
 @section('content')
 <div class="row">
     <div class="col-lg-12">
@@ -125,7 +128,7 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Media</label>
-	                    			<select class="form-control {{ $errors->has('media') ? ' is-invalid' : '' }}" name="media" required>
+	                    			<select class="js-example-basic-multiple form-control  {{ $errors->has('media') ? ' is-invalid' : '' }}" name="media[]"  multiple="multiple" required >
 	                    				@foreach($medias as $row)
 	                    					<option value="{{$row->id}}">{{$row->label}}</option>
 	                    				@endforeach
@@ -137,10 +140,11 @@
                                                 @endif
 	                    		</div>
 	                    	</div>
+
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Skills</label>
-	                    			<select class="form-control {{ $errors->has('skills') ? ' is-invalid' : '' }}" name="skills" required >
+	                    			<select class="form-control js-example-basic-multiple {{ $errors->has('skills') ? ' is-invalid' : '' }}" multiple="multiple" name="skills[]" required >
 	                    				@foreach($skills as $row)
 	                    					<option value="{{$row->id}}">{{$row->label}}</option>
 	                    				@endforeach
@@ -155,7 +159,11 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Tags</label>
-	                    			<input type="text" name="tags" required class="form-control {{ $errors->has('tags') ? ' is-invalid' : '' }}" value="{{old('tags')}}" placeholder="Tags" />
+	                    			<select class="form-control js-example-basic-multiple {{ $errors->has('tags') ? ' is-invalid' : '' }}" multiple="multiple" name="tags[]" required >
+	                    				@foreach($tags as $row)
+	                    					<option value="{{$row->id}}">{{$row->label}}</option>
+	                    				@endforeach
+	                    			</select>
 	                    			@if($errors->has('tags'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('tags') }}</strong>
@@ -169,7 +177,11 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Carnation</label>
-	                    			<input type="text" name="complexion" required class="form-control {{ $errors->has('complexion') ? ' is-invalid' : '' }}" value="{{old('complexion')}}" placeholder="Carnation" />
+	                    			<select class="form-control js-example-basic-single {{ $errors->has('complexion') ? ' is-invalid' : '' }}"  name="complexion" required >
+	                    				@foreach($carnations as $row)
+	                    					<option value="{{$row->id}}" {{old('complexion') == $row->id ? 'selected' : ''}}>{{$row->label}}</option>
+	                    				@endforeach
+	                    			</select>
 	                    			@if($errors->has('complexion'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('complexion') }}</strong>
@@ -181,7 +193,11 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Couleur des cheveux</label>
-	                    			<input type="text" name="hair_color" required class="form-control {{ $errors->has('hair_color') ? ' is-invalid' : '' }}" value="{{old('hair_color')}}" placeholder="Couleur des cheveux" />
+	                    			<select class="form-control js-example-basic-single {{ $errors->has('hair_color') ? ' is-invalid' : '' }}" name="hair_color" required >
+	                    				@foreach($haircolors as $row)
+	                    					<option value="{{$row->id}}" {{old('hair_color') == $row->id ? 'selected' : ''}}>{{$row->label}}</option>
+	                    				@endforeach
+	                    			</select>
 	                    			@if($errors->has('hair_color'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('hair_color') }}</strong>
@@ -192,7 +208,11 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Type des cheveux</label>
-	                    			<input type="text" name="hair_type" required class="form-control {{ $errors->has('hair_type') ? ' is-invalid' : '' }}" value="{{old('hair_type')}}" placeholder="Type des cheveux" />
+	                    			<select class="form-control js-example-basic-single {{ $errors->has('hair_type') ? ' is-invalid' : '' }}" name="hair_type" required >
+	                    				@foreach($hairstyles as $row)
+	                    					<option value="{{$row->id}}" {{old('hair_type') == $row->id ? 'selected' : ''}}>{{$row->label}}</option>
+	                    				@endforeach
+	                    			</select>
 	                    			@if($errors->has('hair_type'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('hair_type') }}</strong>
@@ -216,7 +236,11 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Couleur des yeux</label>
-	                    			<input type="text" name="eyes_color" required class="form-control {{ $errors->has('eyes_color') ? ' is-invalid' : '' }}" value="{{old('eyes_color')}}" placeholder="Couleur des yeux" />
+	                    			<select class="form-control js-example-basic-single {{ $errors->has('eyes_color') ? ' is-invalid' : '' }}" name="eyes_color" required >
+	                    				@foreach($eyecolors as $row)
+	                    					<option value="{{$row->id}}" {{old('eyes_color') == $row->id ? 'selected' : ''}}>{{$row->label}}</option>
+	                    				@endforeach
+	                    			</select>
 	                    			@if($errors->has('eyes_color'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('eyes_color') }}</strong>
@@ -262,7 +286,11 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Animeaux domestiques</label>
-	                    			<input type="text" name="animals" required class="form-control {{ $errors->has('animals') ? ' is-invalid' : '' }}" value="{{old('animals')}}" placeholder="Animeaux domestiques" />
+	                    			<select class="form-control js-example-basic-multiple {{ $errors->has('animals') ? ' is-invalid' : '' }}" multiple="multiple" name="animals[]" required >
+	                    				@foreach($animals as $row)
+	                    					<option value="{{$row->id}}">{{$row->label}}</option>
+	                    				@endforeach
+	                    			</select>
 	                    			@if($errors->has('animals'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('animals') }}</strong>
@@ -275,7 +303,11 @@
 	                    	<div class="col-md-3">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Food</label>
-	                    			<input type="text" name="food" required class="form-control {{ $errors->has('food') ? ' is-invalid' : '' }}" value="{{old('food')}}" placeholder="Food" />
+	                    			<select class="form-control js-example-basic-multiple {{ $errors->has('food') ? ' is-invalid' : '' }}" name="food[]" required multiple="multiple" >
+	                    				@foreach($foods as $row)
+	                    					<option value="{{$row->id}}" >{{$row->label}}</option>
+	                    				@endforeach
+	                    			</select>
 	                    			@if($errors->has('food'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('food') }}</strong>
@@ -332,7 +364,11 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Love brand</label>
-	                    			<input type="text" name="love_brand" required class="form-control {{ $errors->has('love_brand') ? ' is-invalid' : '' }}" value="{{old('love_brand')}}" placeholder="Love brand" />
+	                    			<select class="form-control js-example-basic-multiple {{ $errors->has('love_brand') ? ' is-invalid' : '' }}" name="love_brand[]" required multiple="multiple">
+	                    				@foreach($brands as $row)
+	                    					<option value="{{$row->id}}">{{$row->label}}</option>
+	                    				@endforeach
+	                    			</select>
 	                    			@if($errors->has('love_brand'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('love_brand') }}</strong>
@@ -411,4 +447,13 @@
         </div>
     </div>
 </div>
+@endsection
+@section('js-includes')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script>
+	$(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+    $('.js-example-basic-single').select2();
+});
+</script>
 @endsection
