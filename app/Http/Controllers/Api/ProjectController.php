@@ -220,19 +220,23 @@ class ProjectController extends Controller
 
     public function likeDislike (Request $request)
     {
-        $proj_id = $request->input('proj_id');
+        $project_id = $request->input('project_id');
         $influencer_id = $request->input('influencer_id');
-        $likedilike = $request->input('likedilike');
+        $like_dislike = $request->input('like_dislike');
 
 
         $projInf = new Projectinfluencer();
 
-        $projInf->proj_id = $proj_id;
-        $projInf->inf_id = $inf_id;
-        $projInf->likedilike = $likedilike;
+        $projInf->project_id = $project_id;
+        $projInf->influencer_id = $influencer_id;
+        $projInf->like_dislike = $like_dislike;
 
         $projInf->save();
-        return $projInf;
+
+        $success['code'] = 200;
+        $success['message'] = 'opération validé';
+        $success['projInf'] = $projInf;
+        return $success;
     }
 
 
