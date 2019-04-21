@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Skill;
+use App\Food;
 
-class SkillController extends Controller
+class FoodController extends Controller
 {
-    public function getSkills()
+    public function getFoods()
     {
-    	return Skill::all(); 
+    	return Food::all(); 
     }
 }

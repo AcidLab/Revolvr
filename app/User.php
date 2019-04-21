@@ -14,6 +14,9 @@ class User extends Authenticatable
     use HasApiTokens, Notifiable;
         use SoftDeletes;
 
+            protected $guard = 'announcer';
+
+
     //protected $guard = 'advertiser';
 
     /**

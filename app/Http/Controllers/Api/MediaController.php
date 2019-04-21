@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Skill;
+use App\Media;
 
-class SkillController extends Controller
+class MediaController extends Controller
 {
-    public function getSkills()
+    public function getMedias()
     {
-    	return Skill::all(); 
+    	return Media::all(); 
     }
 }

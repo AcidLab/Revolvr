@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Brand;
 
-class ProjSkillsController extends Controller
+class BrandController extends Controller
 {
-    //
+    public function getBrands()
+	{
+		return Brand::all(); 
+	}
 }

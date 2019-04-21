@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class ProjSkill extends Model
+class ProjTag extends Model
 {
-    protected $table='projskills';
-        use SoftDeletes;
-
+        protected $table='projtags';
+        	use SoftDeletes;
 }

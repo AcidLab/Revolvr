@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Skill;
+use App\Tag;
 
-class SkillController extends Controller
+class TagController extends Controller
 {
-    public function getSkills()
+    public function getTags()
     {
-    	return Skill::all(); 
+    	return Tag::all();
     }
 }

@@ -46,6 +46,20 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'announcer' => [
+            'driver' => 'session',
+            'provider' => 'announcers',
+        ],
+        'influencer' => [
+            'driver' => 'session',
+            'provider' => 'influencers',
+        ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
         
     ],
 
@@ -67,13 +81,18 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'announcers' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Admin::class,
+        ],
+
+        'influencers' => [
+            'driver' => 'eloquent',
+            'model' => App\Influencer::class,
         ],
 
         // 'users' => [

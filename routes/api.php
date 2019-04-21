@@ -19,10 +19,37 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 });
 
-
 Route::post('login', 'Api\AuthController@login');
-Route::post('register', 'Api\AuthController@register');   
+Route::post('register/annonceur', 'Api\AuthController@registerAnn');  
+Route::post('register/influencer', 'Api\AuthController@registerInf');    
 Route::post('addproject', 'Api\ProjectController@addProject');
 Route::post('updateproject', 'Api\ProjectController@updateProject');
 Route::post('deleteproject', 'Api\ProjectController@deleteProject');
 Route::post('showProjectByUserId', 'Api\ProjectController@showProjectByUserId');
+
+//webservice 
+
+Route::get('getAnimals', 'Api\AnimalController@getAnimals');
+
+Route::get('getBrands', 'Api\BrandController@getBrands');
+
+Route::get('getCarnations', 'Api\CarnationController@getCarnations');
+
+Route::get('getCities', 'Api\CityController@getCities');
+
+Route::get('getCountries', 'Api\CountryController@getCountries');
+
+Route::get('getEyeColors', 'Api\EyeColorController@getEyeColors');
+
+Route::get('getFoods', 'Api\FoodController@getFoods');
+
+Route::get('getHairColors', 'Api\HairStyleController@getHairColors');
+
+Route::get('getMedias', 'Api\MediaController@getMedias');
+
+Route::get('getSkills', 'Api\SkillController@getSkills');
+
+Route::get('getTags', 'Api\TagController@getTags');
+
+
+
