@@ -27,6 +27,11 @@ Route::post('updateproject', 'Api\ProjectController@updateProject');
 Route::post('deleteproject', 'Api\ProjectController@deleteProject');
 Route::post('showProjectByUserId', 'Api\ProjectController@showProjectByUserId');
 
+Route::post('setFilter','Api\ProjectController@setFilter'); 
+Route::post('bookmark','Api\ProjectController@bookmark');
+Route::post('cancelBookmark','Api\ProjectController@cancelBookmark');
+
+
 //webservice 
 
 Route::get('getAnimals', 'Api\AnimalController@getAnimals');
