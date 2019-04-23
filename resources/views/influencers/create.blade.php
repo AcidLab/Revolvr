@@ -303,7 +303,7 @@
 	                    	<div class="col-md-3">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Food</label>
-	                    			<select class="form-control js-example-basic-multiple {{ $errors->has('food') ? ' is-invalid' : '' }}" name="food[]" required multiple="multiple" >
+	                    			<select class="form-control js-example-basic-multiple {{ $errors->has('food') ? ' is-invalid' : '' }}" name="food[]" required multiple="multiple">
 	                    				@foreach($foods as $row)
 	                    					<option value="{{$row->id}}" >{{$row->label}}</option>
 	                    				@endforeach
@@ -414,6 +414,29 @@
 	                    	</div>
 	                    	
 	                    </div>
+	                    <div class="row">
+	                    	<div class="col-md-4">
+	                    		<div class="form-group">
+	                    			<label class="control-label">VIP</label>
+	                    			<select class="form-control {{ $errors->has('vip') ? ' is-invalid' : '' }}" required name="vip">
+	                    				<option value="0" {{old('vip') == 0 ? 'selected' : ''}}>Non</option>
+	                    				<option value="1" {{old('vip') == 1 ? 'selected' : ''}}>Oui</option>
+	                    			</select> 
+	                    		</div>
+	                    	</div>
+	                    	<div class="col-md-4">
+	                    		<div class="form-group">
+	                    			<label class="control-label">Prix de discussion</label>
+	                    			<input type="number" placeholder="Prix de discussion" required name="price_one" class="form-control" value="{{old('price_one')}}"/>
+ 	                    		</div>
+	                    	</div>
+	                    	<div class="col-md-4">
+	                    		<div class="form-group">
+	                    			<label class="control-label">Prix </label>
+	                    			<input type="number" placeholder="Prix" required name="price_two" class="form-control" value="{{old('price_two')}}"/>
+	                    		</div>
+	                    	</div>
+	                    </div>
 	                     <div class="row">
 	                    	<div class="col-md-6">
 	                    		<div class="form-group">
@@ -452,7 +475,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script>
 	$(document).ready(function() {
-    $('.js-example-basic-multiple').select2();
+	//$('.js-example-basic-multiple').attr('data-placeholder','Tapez votre recherche');
+    $('.js-example-basic-multiple').select2({
+	    placeholder: "Tapez votre recherche",
+	    allowClear: true
+});
     $('.js-example-basic-single').select2();
 });
 </script>

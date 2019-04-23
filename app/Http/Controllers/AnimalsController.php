@@ -37,7 +37,8 @@ class AnimalsController extends Controller
         $route = route('animals.store');
         $title = "de l'animal" ; 
         $view->route = $route ; 
-        $view->title = $title ; 
+        $view->title = $title ;
+        $view->withImage = true ;  
         return $view ; 
     }
 
@@ -51,6 +52,12 @@ class AnimalsController extends Controller
     {
         $animal = new Animal ; 
         $animal->label = $request->input('label');
+        if($request->file('image')){
+
+            $file = $request->file('image');
+            $filename= $file->store(config('files.path'),'public');
+            $animal->image = asset($filename);
+        }
         $animal->save();
         return Redirect::to(route('animals.index'));
     }
@@ -81,6 +88,7 @@ class AnimalsController extends Controller
         $view->route = $route ; 
         $view->title = $title ; 
         $view->object = $animal ; 
+        $view->withImage = true ; 
         return $view ;
     }
 
@@ -95,6 +103,12 @@ class AnimalsController extends Controller
     {
         $animal = Animal::find($id);
         $animal->label = $request->input('label');
+        if($request->file('image')){
+
+            $file = $request->file('image');
+            $filename= $file->store(config('files.path'),'public');
+            $animal->image = asset($filename);
+        }
         $animal->save();
         return Redirect::to(route('animals.index'));
     }
