@@ -49,7 +49,9 @@ Route::get('getEyeColors', 'Api\EyeColorController@getEyeColors');
 
 Route::get('getFoods', 'Api\FoodController@getFoods');
 
-Route::get('getHairColors', 'Api\HairStyleController@getHairColors');
+Route::get('getHairStyles', 'Api\HairStyleController@getHairStyles');
+
+Route::get('getHairColors', 'Api\HairColorController@getHairColors');
 
 Route::get('getMedias', 'Api\MediaController@getMedias');
 

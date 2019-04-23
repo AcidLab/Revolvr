@@ -8,6 +8,7 @@ use App\Project;
 use App\ProjSkill;
 use App\ProjTag;
 use App\Projectinfluencer;
+use DateTime;
 use App\Filter;
 
 class ProjectController extends Controller
@@ -192,28 +193,43 @@ class ProjectController extends Controller
 
             $skills = array();
             $tags = array();
-
-
-            $value["sks"] = $value->skills;
-            $value["tags"] = $tags;
+            //$datetime = new DateTime('2017-01-03 14:47:41');
+            $since = $value->getTime();
+            $value->since = $since;
             $projects[]=$value;
         }
+        
+        $success['code'] = 200;
+        $success['message'] = 'projets';
+        $success['projects']=$projects;
+        
+        return response()->json($success);
 
+<<<<<<< HEAD
         $success['code'] = 200;
         $success['message'] = ' les projets du User X sont : ';
         $success['project'] = $projects
         return response()->json($success);
+=======
+>>>>>>> d82b8d62e1dc30f82b245d5787478233ac6f344b
     }
 
 
 
     public function getBookmark (Request $request)
     {
-        $proj_id = $request->input('proj_id');
+        $proj_id = $request->input('project_id');
 
         $bookmark = Projectinfluencer::where([['project_id','=',$proj_id],['like_dislike','=','1']])->get();
+        $influencers = array();
+        foreach ($bookmark as $key => $value) {
 
-        return $bookmark;
+            $influencers[] = $value->influencer;
+        } 
+        $success['code'] = 200;
+        $success['message'] = 'influencers';
+        $success['users']=$influencers;
+        return response()->json($success);
     }
 
 
@@ -251,8 +267,7 @@ class ProjectController extends Controller
 
         $success['code'] = 200;
         $success['message'] = 'opération validé';
-        $success['projInf'] = $projInf;
-        return $success;
+        return response()->json($success);
     }
 
 
@@ -261,8 +276,11 @@ class ProjectController extends Controller
         $proj_id = $request->input('proj_id');
 
         $filter = Filter::where('proj_id','=',$proj_id)->get();
-
-        return $filter;
-
+        $success['code'] = 200;
+        $success['message'] = 'Suppression validé';
+        $success['filter'] = $filter;
+        return response()->json($success);
     }
+    
+ 
 }
