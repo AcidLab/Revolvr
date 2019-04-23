@@ -10,6 +10,11 @@ class BrandController extends Controller
 {
     public function getBrands()
 	{
-		return Brand::all(); 
+		$configs = Brand::all(); 
+		$success['code'] = 200;
+        $success['message'] = 'Succées';
+        $success['config']=$configs;
+        
+        return response()->json($success); 
 	}
 }

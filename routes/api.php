@@ -25,7 +25,7 @@ Route::post('register/influencer', 'Api\AuthController@registerInf');
 Route::post('addproject', 'Api\ProjectController@addProject');
 Route::post('updateproject', 'Api\ProjectController@updateProject');
 Route::post('deleteproject', 'Api\ProjectController@deleteProject');
-Route::post('showProjectByUserId', 'Api\ProjectController@showProjectByUserId');
+Route::post('projects', 'Api\ProjectController@showProjectByUserId');
 
 Route::post('setFilter','Api\ProjectController@setFilter'); 
 Route::post('getBookmark','Api\ProjectController@getBookmark');
@@ -35,27 +35,28 @@ Route::post('likeDislike','Api\ProjectController@likeDislike');
 
 //webservice 
 
-Route::get('getAnimals', 'Api\AnimalController@getAnimals');
+Route::post('animals', 'Api\AnimalController@getAnimals');
 
-Route::get('getBrands', 'Api\BrandController@getBrands');
+Route::post('brands', 'Api\BrandController@getBrands');
 
-Route::get('getCarnations', 'Api\CarnationController@getCarnations');
+Route::post('carnations', 'Api\CarnationController@getCarnations');
 
-Route::get('getCities', 'Api\CityController@getCities');
+Route::post('cities', 'Api\CityController@getCities');
 
-Route::get('getCountries', 'Api\CountryController@getCountries');
+Route::post('countries', 'Api\CountryController@getCountries');
 
-Route::get('getEyeColors', 'Api\EyeColorController@getEyeColors');
+Route::post('eye-color', 'Api\EyeColorController@getEyeColors');
 
-Route::get('getFoods', 'Api\FoodController@getFoods');
+Route::post('foods', 'Api\FoodController@getFoods');
 
-Route::get('getHairColors', 'Api\HairStyleController@getHairColors');
+Route::post('hair-color', 'Api\HairColorController@getHairColors');
+Route::post('hair-style', 'Api\HairStyleController@getHairStyles');
 
-Route::get('getMedias', 'Api\MediaController@getMedias');
+Route::post('medias', 'Api\MediaController@getMedias');
 
-Route::get('getSkills', 'Api\SkillController@getSkills');
+Route::post('skills', 'Api\SkillController@getSkills');
 
-Route::get('getTags', 'Api\TagController@getTags');
+Route::post('tags', 'Api\TagController@getTags');
 
 
 

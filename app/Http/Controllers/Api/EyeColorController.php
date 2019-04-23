@@ -10,6 +10,11 @@ class EyeColorController extends Controller
 {
 	public function getEyecolors()
 	{
-		return EyeColor::all(); 
+		$configs = EyeColor::all(); 
+		$success['code'] = 200;
+        $success['message'] = 'Succées';
+        $success['config']=$configs;
+        
+        return response()->json($success); 
 	}
 }

@@ -10,6 +10,11 @@ class CityController extends Controller
 {
     public function getCities()
 	{
-		return City::all(); 
+		$configs = City::all(); 
+		$success['code'] = 200;
+        $success['message'] = 'Succées';
+        $success['config']=$configs;
+        
+        return response()->json($success);  
 	}
 }

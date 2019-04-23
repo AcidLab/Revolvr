@@ -10,6 +10,11 @@ class HairColorController extends Controller
 {
     public function getHairColors()
     {
-    	return HairColor::all(); 
+    	$configs = HairColor::all(); 
+		$success['code'] = 200;
+        $success['message'] = 'Succées';
+        $success['config']=$configs;
+        
+        return response()->json($success); 
     }
 }

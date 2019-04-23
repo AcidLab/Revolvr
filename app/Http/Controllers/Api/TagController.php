@@ -10,6 +10,11 @@ class TagController extends Controller
 {
     public function getTags()
     {
-    	return Tag::all();
+    	$configs = Tag::all(); 
+		$success['code'] = 200;
+        $success['message'] = 'Succées';
+        $success['config']=$configs;
+        
+        return response()->json($success); 
     }
 }

@@ -10,6 +10,11 @@ class CountryController extends Controller
 {
     public function getCountries()
 	{
-		return Country::all(); 
+		$configs = Country::all(); 
+		$success['code'] = 200;
+        $success['message'] = 'Succées';
+        $success['config']=$configs;
+        
+        return response()->json($success); 
 	}
 }

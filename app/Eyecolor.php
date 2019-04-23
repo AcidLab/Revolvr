@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Eyecolor extends Model
+class EyeColor extends Model
 {
     use SoftDeletes;
 	
