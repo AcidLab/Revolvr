@@ -8,7 +8,9 @@ use App\Project;
 use App\ProjSkill;
 use App\ProjTag;
 use App\Projectinfluencer;
-    use DateTime;
+use DateTime;
+use App\Filter;
+
 class ProjectController extends Controller
 {
      public function addProject (Request $request)
@@ -69,6 +71,19 @@ class ProjectController extends Controller
             $s->save();
 
         }
+
+
+        //addfilter
+
+        $filter = new Filter();
+
+        $filter->proj_id = $project->id;
+        $filter->ville = $ville;
+        $filter->age = $age;
+        $filter->nbr_folowers = $nbr_folowers;
+        $filter->engagement= $engagement;
+
+        $filter->save();
 
         return $project;
     }
@@ -133,7 +148,7 @@ class ProjectController extends Controller
 
 
 
-    public function showProjectById(Request $request)
+    public function showProjectByProjId(Request $request)
     {
         $id = $request->input('user_id');
 
@@ -181,7 +196,7 @@ class ProjectController extends Controller
 
 
 
-    public function Bookmark (Request $request)
+    public function getBookmark (Request $request)
     {
         $proj_id = $request->input('proj_id');
 
@@ -196,75 +211,48 @@ class ProjectController extends Controller
 
         $proj_id = $request->input('proj_id');
 
-        $bookmark= Projectinfluencer::where('project_id','=',$proj_id)->get();
+        $book= Projectinfluencer::where('project_id','=',$proj_id)->orderBy('created_at', 'desc')->first();
 
-        $last = $bookmark(count($bookmark)-1);
 
-        $last->delete();
+        $book->delete();
+
+        $success['code'] = 200;
+        $success['message'] = 'Suppression validé';
+        return response()->json($success);
+
+        
     }
 
     public function likeDislike (Request $request)
     {
-        $proj_id = $request->input('proj_id');
-        $inf_id = $request->input('inf_id');
-        $likedilike = $request->input('likedilike');
+        $project_id = $request->input('project_id');
+        $influencer_id = $request->input('influencer_id');
+        $like_dislike = $request->input('like_dislike');
 
 
         $projInf = new Projectinfluencer();
 
-        $projInf->proj_id = $proj_id;
-        $projInf->inf_id = $inf_id;
-        $projInf->likedilike = $likedilike;
+        $projInf->project_id = $project_id;
+        $projInf->influencer_id = $influencer_id;
+        $projInf->like_dislike = $like_dislike;
 
         $projInf->save();
-        return $projInf;
+
+        $success['code'] = 200;
+        $success['message'] = 'opération validé';
+        $success['projInf'] = $projInf;
+        return $success;
     }
 
 
-
-    public function addProjecFilter(Request $request)
+    public function getFilter (Request $request)
     {
-        $id_proj = $request->input('proj_id');
+        $proj_id = $request->input('proj_id');
 
-        $ville = $request->input('ville');
-        $age = $request->input('age');
-        $nbr_folowers = $request->input('nbr_folowers');
-        $engagement = $request->input('engagement');
-
-        $eye_color = $request->input('eye_color');
-        $hair_color = $request->input('hair_color');
-        $hair_type = $request->input('hair_type');
-        $taille = $request->input('taille');
-
-
-        $filter = new Filter();
-
-        $filter->id_proj = $id_proj;
-        $filter->ville = $ville;
-        $filter->age = $age;
-        $filter->nbr_folowers = $nbr_folowers;
-        $filter->engagement= $engagement;
-        $filter->eye_color = $eye_color;
-        $filter->hair_type = $hair_type;
-        $filter->hair_color = $hair_color;
-        $filter->taille = $taille;
-
-        $filter->save();
-
-        return $filter;
-    }
-
-
-     public function addProfffjecFilter(Request $request)
-    {
-        $id_proj = $request->input('proj_id');
-
-        $filter = Filter::find($id_proj);
+        $filter = Filter::where('proj_id','=',$proj_id)->get();
 
         return $filter;
     }
     
-    
-
-
+ 
 }
