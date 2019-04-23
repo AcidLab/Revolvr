@@ -37,7 +37,8 @@ class BrandsController extends Controller
         $route = route('brands.store');
         $title = "de la marque" ; 
         $view->route = $route ; 
-        $view->title = $title ; 
+        $view->title = $title ;
+        $view->withImage = true ;  
         return $view ;
     }
 
@@ -51,6 +52,12 @@ class BrandsController extends Controller
     {
         $brand = new Brand ; 
         $brand->label = $request->input('label');
+        if($request->file('image')){
+
+            $file = $request->file('image');
+            $filename= $file->store(config('files.path'),'public');
+            $brand->image = asset($filename);
+        }
         $brand->save();
         return Redirect::to(route('brands.index'));
     }
@@ -81,6 +88,7 @@ class BrandsController extends Controller
         $view->route = $route ; 
         $view->title = $title ; 
         $view->object = $brand ; 
+        $view->withImage = true ; 
         return $view ;
     }
 
@@ -95,6 +103,12 @@ class BrandsController extends Controller
     {
         $brand = Brand::find($id);
         $brand->label = $request->input('label');
+        if($request->file('image')){
+
+            $file = $request->file('image');
+            $filename= $file->store(config('files.path'),'public');
+            $brand->image = asset($filename);
+        }
         $brand->save();
         return Redirect::to(route('brands.index'));
     }

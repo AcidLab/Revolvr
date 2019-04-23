@@ -39,6 +39,7 @@ class MediasController extends Controller
         $title = "du média" ; 
         $view->route = $route ; 
         $view->title = $title ; 
+        $view->withImage = true ; 
         return $view ; 
     }
 
@@ -52,6 +53,12 @@ class MediasController extends Controller
     {
         $media = new Media ; 
         $media->label = $request->input('label');
+        if($request->file('image')){
+
+            $file = $request->file('image');
+            $filename= $file->store(config('files.path'),'public');
+            $media->image = asset($filename);
+        }
         $media->save();
         return Redirect::to(route('medias.index'));
     }
@@ -81,7 +88,8 @@ class MediasController extends Controller
         $title = "du média" ; 
         $view->route = $route ; 
         $view->title = $title ; 
-        $view->object = $media ; 
+        $view->object = $media ;
+        $view->withImage = true ;  
         return $view ; 
     }
 
@@ -96,6 +104,12 @@ class MediasController extends Controller
     {
         $media = Media::find($id) ; 
         $media->label = $request->input('label');
+        if($request->file('image')){
+
+            $file = $request->file('image');
+            $filename= $file->store(config('files.path'),'public');
+            $media->image = asset($filename);
+        }
         $media->save();
         return Redirect::to(route('medias.index'));
     }

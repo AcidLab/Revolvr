@@ -38,6 +38,7 @@ class HairStylesController extends Controller
         $title = "du style" ; 
         $view->route = $route ; 
         $view->title = $title ; 
+        $view->withImage = true ; 
         return $view ; 
     }
 
@@ -51,6 +52,12 @@ class HairStylesController extends Controller
     {
         $hairstyle = new Hairstyle ; 
         $hairstyle->label = $request->input('label');
+        if($request->file('image')){
+
+            $file = $request->file('image');
+            $filename= $file->store(config('files.path'),'public');
+            $hairstyle->image = asset($filename);
+        }
         $hairstyle->save();
         return Redirect::to(route('hairstyles.index'));
     }
@@ -81,6 +88,7 @@ class HairStylesController extends Controller
         $view->route = $route ; 
         $view->title = $title ; 
         $view->object = $hairstyle ; 
+        $view->withImage = true ; 
         return $view ;
     }
 
@@ -95,6 +103,12 @@ class HairStylesController extends Controller
     {
         $hairstyle = Hairstyle::find($id);
         $hairstyle->label = $request->input('label');
+        if($request->file('image')){
+
+            $file = $request->file('image');
+            $filename= $file->store(config('files.path'),'public');
+            $hairstyle->image = asset($filename);
+        }
         $hairstyle->save();
         return Redirect::to(route('hairstyles.index'));
     }
