@@ -187,7 +187,7 @@ class ProjectController extends Controller
         }
         
         $success['code'] = 200;
-        $success['message'] = 'Projets';
+        $success['message'] = 'projets';
         $success['projects']=$projects;
         
         return response()->json($success);
@@ -198,11 +198,18 @@ class ProjectController extends Controller
 
     public function getBookmark (Request $request)
     {
-        $proj_id = $request->input('proj_id');
+        $proj_id = $request->input('project_id');
 
         $bookmark = Projectinfluencer::where([['project_id','=',$proj_id],['like_dislike','=','1']])->get();
+        $influencers = array();
+        foreach ($bookmark as $key => $value) {
 
-        return $bookmark;
+            $influencers[] = $value->influencer;
+        } 
+        $success['code'] = 200;
+        $success['message'] = 'influencers';
+        $success['users']=$influencers;
+        return response()->json($success);
     }
 
 
@@ -240,8 +247,7 @@ class ProjectController extends Controller
 
         $success['code'] = 200;
         $success['message'] = 'opération validé';
-        $success['projInf'] = $projInf;
-        return $success;
+        return response()->json($success);
     }
 
 
@@ -250,8 +256,10 @@ class ProjectController extends Controller
         $proj_id = $request->input('proj_id');
 
         $filter = Filter::where('proj_id','=',$proj_id)->get();
-
-        return $filter;
+        $success['code'] = 200;
+        $success['message'] = 'Suppression validé';
+        $success['filter'] = $filter;
+        return response()->json($success);
     }
     
  
