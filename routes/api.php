@@ -61,3 +61,8 @@ Route::get('getTags', 'Api\TagController@getTags');
 
 
 
+Route::get('getAll', 'Api\ConfigController@getAll');
+
+
+
+

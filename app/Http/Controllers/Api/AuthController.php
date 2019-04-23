@@ -54,7 +54,7 @@
             else {
                 
                 $success['code'] = 302;
-                $success['message'] = 'Email introuvable';
+                $success['retour'] = 'Email introuvable';
                 return response()->json($success);
                 
             }
@@ -68,7 +68,7 @@
                 
                 $user = Auth::guard($guard)->user();
                 $success['code'] = 200;
-                $success['message'] = 'Login effectué avec succées';
+                $success['retour'] = 'Login effectué avec succées';
                 $success['token'] =  $user->createToken('revolver')->accessToken;
                 $success['kind'] = $guard;
                 $success['user']=$user;
@@ -78,7 +78,7 @@
             else
             {
                 $success['code'] = 301;
-                $success['message'] = 'Mot de passe erroné';
+                $success['retour'] = 'Mot de passe erroné';
                 return response()->json($success);
             }
             
@@ -97,6 +97,61 @@
                 
             }
             $input = $request->all();
+
+             if (!$input['name'])
+            {
+             $retour['message']='le champ name est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['email'])
+            {
+             $retour['message']='le champ email est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['password'])
+            {
+             $retour['message']='le champ password est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['fname'])
+            {
+             $retour['message']='le champ fname est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['position'])
+            {
+             $retour['message']='le champ position est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['tva'])
+            {
+             $retour['message']='le champ tva est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['societe'])
+            {
+             $retour['message']='le champ societe est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['phone'])
+            {
+             $retour['message']='le champ phone est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['image'])
+            {
+             $retour['message']='le champ image est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
             
             
             $user= User::create([
@@ -124,7 +179,7 @@
         
         public function registerInf(Request $request)
         {
-            $rules = array('email' => 'required|string|email|max:255|unique:users',);
+            $rules = array('email' => 'required|string|email|max:255|unique:influencers',);
             $v = Validator::make($request->all(),$rules);
             if ($v->fails()) {
                 
@@ -134,6 +189,202 @@
                 
             }
             $input = $request->all();
+
+
+            if (!$input['name'])
+            {
+             $retour['message']='le champ name est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['email'])
+            {
+             $retour['message']='le champ email est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['password'])
+            {
+             $retour['message']='le champ password est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['fname'])
+            {
+             $retour['message']='le champ fname est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['age'])
+            {
+             $retour['message']='le champ age est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['sexe'])
+            {
+             $retour['message']='le champ sexe est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['country'])
+            {
+             $retour['message']='le champ country est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['city'])
+            {
+             $retour['message']='le champ city est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['number_of_subscribers'])
+            {
+             $retour['message']='le champ number_of_subscribers est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['commitement_rate'])
+            {
+             $retour['message']='le champ commitement_rate est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['views_number_per_story'])
+            {
+             $retour['message']='le champ views_number_per_story est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['complexion'])
+            {
+             $retour['message']='le champ complexion est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['hair_color'])
+            {
+             $retour['message']='le champ hair_color est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['hair_type'])
+            {
+             $retour['message']='le champ hair_type est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['hair_length'])
+            {
+             $retour['message']='le champ hair_length est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['eyes_color'])
+            {
+             $retour['message']='le champ eyes_color est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['cut'])
+            {
+             $retour['message']='le champ cut est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['clothes_cut'])
+            {
+             $retour['message']='le champ clothes_cut est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['shoe_size'])
+            {
+             $retour['message']='le champ shoe_size est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['beauty'])
+            {
+             $retour['message']='le champ beauty est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['home'])
+            {
+             $retour['message']='le champ home est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['address'])
+            {
+             $retour['message']='le champ address est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['phone'])
+            {
+             $retour['message']='le champ phone est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['tags'])
+            {
+             $retour['message']='le champ tags est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['skills'])
+            {
+             $retour['message']='le champ skills est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['permis'])
+            {
+             $retour['message']='le champ permis est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['medias'])
+            {
+             $retour['message']='le champ medias est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['brands'])
+            {
+             $retour['message']='le champ brands est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['friends'])
+            {
+             $retour['message']='le champ friends est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['foods'])
+            {
+             $retour['message']='le champ foods est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+            if (!$input['animals'])
+            {
+             $retour['message']='le champ animals est vide';
+             $retour['code']='300';
+
+             return response()->json($retour);
+            }
+            if (!$input['images'])
+            {
+             $retour['message']='le champ images est vide';
+             $retour['code']='300';
+             return response()->json($retour);
+            }
+
             
             
             $inf= Influencer::create([
