@@ -8,7 +8,7 @@ use App\Project;
 use App\ProjSkill;
 use App\ProjTag;
 use App\Projectinfluencer;
-
+    use DateTime;
 class ProjectController extends Controller
 {
      public function addProject (Request $request)
@@ -165,14 +165,18 @@ class ProjectController extends Controller
 
             $skills = array();
             $tags = array();
-
-
-            $value["sks"] = $value->skills;
-            $value["tags"] = $tags;
+            //$datetime = new DateTime('2017-01-03 14:47:41');
+            $since = $value->getTime();
+            $value->since = $since;
             $projects[]=$value;
         }
+        
+        $success['code'] = 200;
+        $success['message'] = 'Projets';
+        $success['projects']=$projects;
+        
+        return response()->json($success);
 
-        return $projects;
     }
 
 
@@ -259,6 +263,8 @@ class ProjectController extends Controller
 
         return $filter;
     }
+    
+    
 
 
 }
