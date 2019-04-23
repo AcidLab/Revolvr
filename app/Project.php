@@ -6,6 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Projectinfluencer ;
 use DateTime;
+use App\Projhome;
+use App\Projhairtype;
+use App\Projhairlength;
+use App\Projhaircolor;
+use App\Projeyescolor;
+use App\Projcut;
+use App\Projcomplexion;
+use App\Projclothscut;
+use App\Projshoesize;
+
+
 class Project extends Model
 {
         use SoftDeletes;
@@ -71,4 +82,52 @@ class Project extends Model
         if (!$full) $string = array_slice($string, 0, 1);
         return $string ? implode(', ', $string) . ' ' : 'maintenant';
     }
+
+
+    public function shoeSizes()
+    {
+            return $this->hasMany('App\Projshoesize','proj_id');
+    }
+
+    public function clothsCuts()
+    {
+            return $this->hasMany('App\Projclothscut','proj_id');
+    }
+
+    public function complexions()
+    {
+            return $this->hasMany('App\Projcomplexion','proj_id');
+    }
+
+    public function cuts()
+    {
+            return $this->hasMany('App\Projcut','proj_id');
+    }
+
+    public function eyesColors()
+    {
+            return $this->hasMany('App\Projeyescolor','proj_id');
+    }
+
+    public function hairColors()
+    {
+            return $this->hasMany('App\Projhaircolor','proj_id');
+    }
+
+    public function hairLengths()
+    {
+            return $this->hasMany('App\Projhairlength','proj_id');
+    }
+
+    public function hairTypes()
+    {
+            return $this->hasMany('App\Projhairtype','proj_id');
+    }
+
+    public function homes()
+    {
+            return $this->hasMany('App\Projhome','proj_id');
+    }
+
+
 }
