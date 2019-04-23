@@ -85,7 +85,12 @@ class ProjectController extends Controller
 
         $filter->save();
 
-        return $project;
+        $success['code'] = 200;
+        $success['message'] = 'création du projet a été faite avec succès';
+        $success['project'] = $project
+        return response()->json($success);
+
+
     }
 
 
@@ -115,7 +120,10 @@ class ProjectController extends Controller
         
         $project->save();
         
-        return $project;
+        $success['code'] = 200;
+        $success['message'] = 'modification du projet a été faite avec succès';
+        $success['project'] = $project
+        return response()->json($success);
     }
 
 
@@ -143,7 +151,9 @@ class ProjectController extends Controller
             $value->delete();
         }
 
-        return 'ok';
+        $success['code'] = 200;
+        $success['message'] = 'suppression du projet a été faite avec succès';
+        return response()->json($success);
     }
 
 
@@ -162,7 +172,10 @@ class ProjectController extends Controller
 
         $project->skills = $skills;
 
-        return $project;
+        $success['code'] = 200;
+        $success['message'] = ' le retour de details du projet a été faite avec success ';
+        $success['project'] = $project
+        return response()->json($success);
     }
 
 
@@ -192,6 +205,13 @@ class ProjectController extends Controller
         
         return response()->json($success);
 
+<<<<<<< HEAD
+        $success['code'] = 200;
+        $success['message'] = ' les projets du User X sont : ';
+        $success['project'] = $projects
+        return response()->json($success);
+=======
+>>>>>>> d82b8d62e1dc30f82b245d5787478233ac6f344b
     }
 
 
