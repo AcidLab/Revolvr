@@ -10,6 +10,11 @@ class CarnationController extends Controller
 {
     public function getCarnations()
 	{
-		return Carnation::all(); 
+		$configs = Carnation::all(); 
+		$success['code'] = 200;
+        $success['message'] = 'Succées';
+        $success['config']=$configs;
+        
+        return response()->json($success); 
 	}
 }

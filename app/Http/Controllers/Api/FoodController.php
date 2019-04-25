@@ -10,6 +10,11 @@ class FoodController extends Controller
 {
     public function getFoods()
     {
-    	return Food::all(); 
+    	$configs = Food::all(); 
+		$success['code'] = 200;
+        $success['message'] = 'Succées';
+        $success['config']=$configs;
+        
+        return response()->json($success); 
     }
 }

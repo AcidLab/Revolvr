@@ -10,6 +10,11 @@ class AnimalController extends Controller
 {
     public function getAnimals()
 	{
-		return Animal::all(); 
+		$configs = Animal::all(); 
+		$success['code'] = 200;
+        $success['message'] = 'Succées';
+        $success['config']=$configs;
+        
+        return response()->json($success);
 	}
 }

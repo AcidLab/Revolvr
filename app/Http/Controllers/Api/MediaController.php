@@ -10,6 +10,11 @@ class MediaController extends Controller
 {
     public function getMedias()
     {
-    	return Media::all(); 
+    	$configs = Media::all(); 
+		$success['code'] = 200;
+        $success['message'] = 'Succées';
+        $success['config']=$configs;
+        
+        return response()->json($success); 
     }
 }

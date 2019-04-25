@@ -63,6 +63,9 @@ class SearchController extends Controller
         $whereArray = $this->prepareWhereArray($project);
         $project_influencers = Projectinfluencer::select('influencer_id')->where('project_id','=',$project->id)->pluck('influencer_id');
         $influencers_today = Projectinfluencer::select('influencer_id')->where([['project_id','=',$project->id],['created_at','>=',date('Y-m-d').' 00:00:00'],['created_at','<=',date('Y-m-d').' 23:59:59']])->pluck('influencer_id');
+<<<<<<< HEAD
+        $influencers = Influencer::whereNotIn('id',$project_influencers)->limit($limit-count($influencers_today))->get();
+=======
         $influencers = Influencer::where($whereArray)
         ->whereIn('complexion',$this->transformToIdsTable($project->complexions))
         ->whereIn('hair_color',$this->transformToIdsTable($project->hairColors))
@@ -79,6 +82,7 @@ class SearchController extends Controller
         ->limit($limit-count($influencers_today));
 
         
+>>>>>>> origin/master
 
         
         return $influencers;

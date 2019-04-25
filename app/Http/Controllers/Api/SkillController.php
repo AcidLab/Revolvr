@@ -10,6 +10,11 @@ class SkillController extends Controller
 {
     public function getSkills()
     {
-    	return Skill::all(); 
+    	$configs = Skill::all(); 
+		$success['code'] = 200;
+        $success['message'] = 'Succées';
+        $success['config']=$configs;
+        
+        return response()->json($success); 
     }
 }

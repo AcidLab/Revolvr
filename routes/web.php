@@ -31,7 +31,7 @@ Route::get('recoverinfluencer/{id}',array('as'=>'influencer.recover','uses'=>'In
 Auth::routes();
 Route::get('logout',array('as'=>'logout','uses'=>'Auth\LoginController@logout'));
 
-Route::get('influencerssearch',array('as'=>'influencers.search','uses'=>'SearchController@searchInfluencers'));
+
 
 //Settings Routes
 Route::resource('medias','MediasController');
