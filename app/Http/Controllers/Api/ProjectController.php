@@ -209,6 +209,7 @@ class ProjectController extends Controller
             $s->proj_id=$id;
             $s->label=$clothescut[$i]->label;
             $s->save();
+            
         }
 
         
