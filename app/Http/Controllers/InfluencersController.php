@@ -114,6 +114,9 @@ class InfluencersController extends Controller
             $influencer->friends = $request->input('friends');
             $influencer->address = $request->input('address');
             $influencer->phone = $request->input('phone');
+            $influencer->vip = $request->input('vip');
+            $influencer->price_one = $request->input('price_one');
+            $influencer->price_two = $request->input('price_two');
             $influencer->save();
 
             while(!$influencer){
@@ -189,6 +192,16 @@ class InfluencersController extends Controller
         $influencer = Influencer::find($id);
         $view = View::make('influencers.edit');
         $view->influencer = $influencer;
+        $view->medias = Media::all();
+        $view->skills = Skill::all();
+        $view->tags = Tag::all();
+        $view->carnations = Carnation::all();
+        $view->haircolors = Haircolor::all();
+        $view->hairstyles = Hairstyle::all();
+        $view->eyecolors =  Eyecolor::all();
+        $view->animals = Animal::all();
+        $view->foods = Food::all();
+        $view->brands = Brand::all();
         return $view ; 
     }
 
@@ -225,9 +238,6 @@ class InfluencersController extends Controller
             $influencer->number_of_subscribers = $request->input('number_of_subscribers');
             $influencer->commitement_rate = $request->input('commitement_rate');
             $influencer->views_number_per_story = $request->input('views_number_per_story');
-            $influencer->media = $request->input('media');
-            $influencer->skills = $request->input('skills');
-            $influencer->tags = $request->input('tags');
             $influencer->complexion = $request->input('complexion');
             $influencer->hair_color = $request->input('hair_color');
             $influencer->hair_type = $request->input('hair_type');
@@ -236,16 +246,101 @@ class InfluencersController extends Controller
             $influencer->cut = $request->input('cut');
             $influencer->clothes_cut = $request->input('clothes_cut');
             $influencer->shoe_size = $request->input('shoe_size');
-            $influencer->animals = $request->input('animals');
-            $influencer->food = $request->input('food');
             $influencer->driving_license = $request->input('driving_license');
             $influencer->beauty = $request->input('beauty');
             $influencer->home = $request->input('home');
             $influencer->friends = $request->input('friends');
-            $influencer->love_brand = $request->input('love_brand');
             $influencer->address = $request->input('address');
             $influencer->phone = $request->input('phone');
+            $influencer->vip = $request->input('vip');
+            $influencer->price_one = $request->input('price_one');
+            $influencer->price_two = $request->input('price_two');
             $influencer->save();
+
+            while(!$influencer){
+                //Do nothing
+            }
+
+            if($request->input('media') && count($request->input('media')) > 0){
+                   $influencermedias = Influencermedia::where('influencer_id','=',$influencer->id)->get();
+                   foreach($influencermedias as $row){
+                        $row->delete();
+                   }
+                   for($i=0;$i<count($request->input('media'));$i++){
+                    $influencermedia = new Influencermedia ; 
+                    $influencermedia->influencer_id = $influencer->id ;
+                    $influencermedia->media_id = $request->input('media')[$i];
+                    $influencermedia->save();
+                } 
+            }
+            
+
+            if($request->input('skills') && count($request->input('skills')) > 0){
+
+                    $influencerskills = Influencerskill::where('influencer_id','=',$influencer->id)->get();
+                    foreach($influencerskills as $row){
+                        $row->delete();
+                    }
+                    for($i=0;$i<count($request->input('skills'));$i++){
+                    $influencerskill = new Influencerskill ; 
+                    $influencerskill->influencer_id = $influencer->id ; 
+                    $influencerskill->skill_id = $request->input('skills')[$i];
+                    $influencerskill->save();
+                }
+            }
+
+            if($request->input('tags') && count($request->input('tags')) > 0){
+                    $influencertags = Influencertag::where('influencer_id','=',$influencer->id)->get();
+                    foreach($influencertags as $row){
+                        $row->delete();
+                    }
+                    for($i=0;$i<count($request->input('tags'));$i++){
+                    $influencertag = new Influencertag ; 
+                    $influencertag->influencer_id = $influencer->id ; 
+                    $influencertag->tag_id = $request->input('tags')[$i];
+                    $influencertag->save();
+                }
+            }
+            if($request->input('animals') && count($request->input('animals')) > 0){
+                $influenceranimals = Influenceranimal::where('influencer_id','=',$influencer->id)->get();
+                foreach($influenceranimals as $row){
+                    $row->delete();
+                }
+                for($i=0;$i<count($request->input('animals'));$i++){
+                $influenceranimal = new Influenceranimal ; 
+                $influenceranimal->influencer_id = $influencer->id ; 
+                $influenceranimal->animal_id = $request->input('animals')[$i];
+                $influenceranimal->save();
+            }
+            }
+            if($request->input('food') && count($request->input('food')) > 0){
+                $influencerfoods = Influencerfood::where('influencer_id','=',$influencer->id)->get();
+                foreach($influencerfoods as $row){
+                    $row->delete();
+                }
+                for($i=0;$i<count($request->input('food'));$i++){
+                $influencerfood = new Influencerfood ; 
+                $influencerfood->influencer_id = $influencer->id ; 
+                $influencerfood->food_id = $request->input('food')[$i];
+                $influencerfood->save();
+            }
+            }
+            
+            if($request->input('love_brand') && count($request->input('love_brand')) > 0){
+                $influencerlovebrands = Influencerbrand::where('influencer_id','=',$influencer->id)->get();
+                foreach($influencerlovebrands as $row){
+                    $row->delete();
+                }
+                for($i=0;$i<count($request->input('love_brand'));$i++){
+                $influencerbrand = new Influencerbrand ; 
+                $influencerbrand->influencer_id = $influencer->id ; 
+                $influencerbrand->brand_id = $request->input('love_brand')[$i];
+                $influencerbrand->save();
+            }
+            }
+
+
+
             return Redirect::to(route('influencers.index'));
 
         }

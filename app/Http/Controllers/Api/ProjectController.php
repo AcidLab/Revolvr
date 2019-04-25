@@ -11,6 +11,16 @@ use App\Projectinfluencer;
 use DateTime;
 use App\Filter;
 
+use App\Projhome;
+use App\Projhairtype;
+use App\Projhairlength;
+use App\Projhaircolor;
+use App\Projeyescolor;
+use App\Projcut;
+use App\Projcomplexion;
+use App\Projclothscut;
+use App\Projshoesize;
+
 class ProjectController extends Controller
 {
      public function addProject (Request $request)
@@ -73,17 +83,7 @@ class ProjectController extends Controller
         }
 
 
-        //addfilter
-
-        $filter = new Filter();
-
-        $filter->proj_id = $project->id;
-        $filter->ville = $ville;
-        $filter->age = $age;
-        $filter->nbr_folowers = $nbr_folowers;
-        $filter->engagement= $engagement;
-
-        $filter->save();
+    
 
         $success['code'] = 200;
         $success['message'] = 'création du projet a été faite avec succès';
@@ -116,6 +116,100 @@ class ProjectController extends Controller
         $project->nbr_folowers=$nbr_folowers;
         $project->engagement=$engagement;
         $project->user_id=$user_id;
+
+
+        //filter
+
+        //shoesizes
+        $shoesizes = json_decode($request->input('shoesizes'));
+        for($i=0; $i<count($shoesizes);$i++)
+        {
+            $s= new Projshoesize;
+            $s->proj_id=$id;
+            $s->label=$shoesizes[$i]->label;
+            $s->save();
+        }
+
+
+        //homes
+        $homes = json_decode($request->input('homes'));
+        for($i=0; $i<count($homes);$i++)
+        {
+            $s= new Projhome;
+            $s->proj_id=$id;
+            $s->home_id=$homes[$i]->id;
+            $s->save();
+        }
+
+        //hairtypes
+        $hairtypes = json_decode($request->input('hairtypes'));
+        for($i=0; $i<count($hairtypes);$i++)
+        {
+            $s= new Projhairtype;
+            $s->proj_id=$id;
+            $s->hairtype_id=$hairtypes[$i]->id;
+            $s->save();
+        }
+
+        //hairlegths
+        $hairlegths = json_decode($request->input('hairlegths'));
+        for($i=0; $i<count($hairlegths);$i++)
+        {
+            $s= new Projhairlength;
+            $s->proj_id=$id;
+            $s->label=$hairlegths[$i]->label;
+            $s->save();
+        }
+
+        //haircolors
+        $haircolors = json_decode($request->input('haircolors'));
+        for($i=0; $i<count($haircolors);$i++)
+        {
+            $s= new Projhaircolor;
+            $s->proj_id=$id;
+            $s->haircolor_id=$haircolors[$i]->id;
+            $s->save();
+        }
+
+        //eyescolors
+        $eyescolors = json_decode($request->input('eyescolors'));
+        for($i=0; $i<count($eyescolors);$i++)
+        {
+            $s= new Projeyescolor;
+            $s->proj_id=$id;
+            $s->eyes_color=$eyescolors[$i]->id;
+            $s->save();
+        }
+
+        //cuts
+        $cuts = json_decode($request->input('cuts'));
+        for($i=0; $i<count($cuts);$i++)
+        {
+            $s= new Projcut;
+            $s->proj_id=$id;
+            $s->label=$cuts[$i]->label;
+            $s->save();
+        }
+
+        //complexions
+        $complexions = json_decode($request->input('complexions'));
+        for($i=0; $i<count($complexions);$i++)
+        {
+            $s= new Projcomplexion;
+            $s->proj_id=$id;
+            $s->complexion_id=$complexions[$i]->id;
+            $s->save();
+        }
+
+        //clothescut
+        $clothescut = json_decode($request->input('clothescut'));
+        for($i=0; $i<count($clothescut);$i++)
+        {
+            $s= new Projclothscut;
+            $s->proj_id=$id;
+            $s->label=$clothescut[$i]->label;
+            $s->save();
+        }
 
         
         $project->save();
