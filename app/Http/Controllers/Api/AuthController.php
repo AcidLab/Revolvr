@@ -15,6 +15,7 @@
     use App\Influencerbrand;
     use App\Influenceranimal;
     use App\Influencerpermi;
+    use App\Influencerimage;
     use Auth;
     
     
@@ -107,6 +108,7 @@
                                 'tva' => $input['tva'],
                                 'societe' => $input['societe'],
                                 'phone' => $input['phone'],
+                                'image' => $input['image'],
                                 ]);
             
             
@@ -268,6 +270,21 @@
                 $s->animal_id=$animals[$i]->id;
                 $s->save();
             }
+
+
+            //images
+
+            $images = json_decode($request->input('images'));
+            
+            
+            for($i=0; $i<count($images);$i++)
+            {
+                $s= new Influencerimage;
+                $s->id_influencer=$inf->id;
+                $s->image=$images[$i]->image;
+                $s->save();
+            }
+
             
             
             $success=$inf;

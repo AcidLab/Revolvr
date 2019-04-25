@@ -52,6 +52,7 @@ Route::post('foods', 'Api\FoodController@getFoods');
 Route::post('hair-color', 'Api\HairColorController@getHairColors');
 Route::post('hair-style', 'Api\HairStyleController@getHairStyles');
 
+
 Route::post('medias', 'Api\MediaController@getMedias');
 
 Route::post('skills', 'Api\SkillController@getSkills');
