@@ -23,7 +23,7 @@ class SearchController extends Controller
         $project = Project::find($request->input('project_id'));
         $project_influencers = Projectinfluencer::select('influencer_id')->where('project_id','=',$project->id)->pluck('influencer_id');
         $influencers_today = Projectinfluencer::select('influencer_id')->where([['project_id','=',$project->id],['created_at','>=',date('Y-m-d').' 00:00:00'],['created_at','<=',date('Y-m-d').' 23:59:59']])->pluck('influencer_id');
-        $influencers = Influencer::whereNotIn('id',$project_influencers)->limit($limit-count($influencers_today));
+        $influencers = Influencer::whereNotIn('id',$project_influencers)->limit($limit-count($influencers_today))->get();
 
         
         return $influencers;

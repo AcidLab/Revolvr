@@ -26,7 +26,7 @@ Route::post('addproject', 'Api\ProjectController@addProject');
 Route::post('updateproject', 'Api\ProjectController@updateProject');
 Route::post('deleteproject', 'Api\ProjectController@deleteProject');
 Route::post('projects', 'Api\ProjectController@showProjectByUserId');
-
+Route::post('search',array('as'=>'influencers.search','uses'=>'SearchController@searchInfluencers'));
 Route::post('setFilter','Api\ProjectController@setFilter'); 
 Route::post('getBookmark','Api\ProjectController@getBookmark');
 Route::post('cancelBookmark','Api\ProjectController@cancelBookmark'); 
