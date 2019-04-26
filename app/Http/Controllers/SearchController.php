@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Influencer ; 
 use App\Project ; 
-use App\Projectinfluencer ; 
+use App\InfluencerProject ; 
 use DB ;
 
 class SearchController extends Controller
@@ -20,8 +20,8 @@ class SearchController extends Controller
     public function prepareWhereArray($project){
 
         $whereArray = array();
-        if($project->ville != null && $project->ville != ""){
-            $whereArray[] = ['city','like','%'.$project->ville.'%'] ;
+        if($project->city_id){
+            $whereArray[] = ['city_id',$project->city_id] ;
         }
         if($project->age != null && $project->age !=""){
             $whereArray[] = ['age','like','%'.$project->age.'%'];
@@ -55,7 +55,7 @@ class SearchController extends Controller
 
     public function searchInfluencers(Request $request){
 
-        $limit = 100 ;
+        /*$limit = 100 ;
         $whereArray = array();
         $price_one_range = [$request->input('min_price_one'),$request->input('max_price_one')];
         $price_two_range = [$request->input('min_price_two'),$request->input('max_price_two')];
@@ -63,9 +63,7 @@ class SearchController extends Controller
         $whereArray = $this->prepareWhereArray($project);
         $project_influencers = Projectinfluencer::select('influencer_id')->where('project_id','=',$project->id)->pluck('influencer_id');
         $influencers_today = Projectinfluencer::select('influencer_id')->where([['project_id','=',$project->id],['created_at','>=',date('Y-m-d').' 00:00:00'],['created_at','<=',date('Y-m-d').' 23:59:59']])->pluck('influencer_id');
-<<<<<<< HEAD
-        $influencers = Influencer::whereNotIn('id',$project_influencers)->limit($limit-count($influencers_today))->get();
-=======
+        //$influencers = Influencer::whereNotIn('id',$project_influencers)->limit($limit-count($influencers_today))->get();
         $influencers = Influencer::where($whereArray)
         ->whereIn('complexion',$this->transformToIdsTable($project->complexions))
         ->whereIn('hair_color',$this->transformToIdsTable($project->hairColors))
@@ -80,12 +78,24 @@ class SearchController extends Controller
         ->whereIn('price_two',$price_two_range)
         ->whereNotIn('id',$project_influencers)
         ->limit($limit-count($influencers_today));
+        
 
         
->>>>>>> origin/master
 
         
-        return $influencers;
+        return $influencers;*/
+        $project = Project::find($request->input('project_id'));
+        $limit = 100 ;
+        $project = Project::find($request->input('project_id'));
+        $project_influencers = InfluencerProject::select('influencer_id')->where('project_id','=',$project->id)->pluck('influencer_id');
+        $influencers_today = InfluencerProject::select('influencer_id')->where([['project_id','=',$project->id],['created_at','>=',date('Y-m-d').' 00:00:00'],['created_at','<=',date('Y-m-d').' 23:59:59']])->pluck('influencer_id');
+        $influencers = Influencer::whereNotIn('id',$project_influencers)->limit($limit-count($influencers_today))->with('country')->with('city')->with('hairColor')->with('hairStyle')->with('eyeColor')->with('tags')->with('skills')->with('brands')->with('foods')->with('medias')->with('images')->get();
+        $success['code'] = 200;
+        $success['message'] = 'projets';
+        $success['users']=$influencers;
+        
+        return response()->json($success);
+
 
     }
     public function index()

@@ -6,12 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Influencermedia ;
-use App\Influenceranimal ; 
-use App\Influencerbrand ; 
-use App\Influencerfood ; 
-use App\Influencerskill ; 
-use App\Influencertag ;  
+
 
 class Influencer extends Authenticatable
 {
@@ -22,11 +17,6 @@ class Influencer extends Authenticatable
 
 
     	protected $guard = 'influencer';
-
-
-    	protected $fillable = [
-        'name', 'fname','email', 'password','age', 'sexe','country','city','number_of_subscribers','commitement_rate','views_number_per_story','complexion','hair_color','hair_type','hair_length','eyes_color','clothes_cut','shoe_size','beauty','home' , 'address' ,'cut','phone',
-    ];
 
     public function getMediasIds(){
     	return Influencermedia::select('media_id')->where('influencer_id','=',$this->id)->pluck('media_id');
@@ -50,6 +40,66 @@ class Influencer extends Authenticatable
 
     public function getFoodsIds(){
     	return Influencerfood::select('food_id')->where('influencer_id','=',$this->id)->pluck('food_id');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo('App\Country');
+    }
+
+    public function city()
+    {
+        return $this->belongsTo('App\City');
+    }
+
+    public function hairColor()
+    {
+            return $this->belongsTo('App\HairColor');
+    }
+
+    public function hairStyle()
+    {
+            return $this->belongsTo('App\HairStyle');
+    }
+
+    public function eyeColor()
+    {
+            return $this->belongsTo('App\EyeColor');
+    }
+
+    public function tags()
+    {
+            return $this->belongsToMany('App\Tag');
+    }
+
+    public function skills()
+    {
+            return $this->belongsToMany('App\Skill');
+    }
+
+    public function brands()
+    {
+            return $this->belongsToMany('App\Brand');
+    }
+
+    public function foods()
+    {
+            return $this->belongsToMany('App\Food');
+    }
+
+    public function medias()
+    {
+            return $this->belongsToMany('App\Media');
+    }
+
+    public function images()
+    {
+            return $this->hasMany('App\Image');
+    }
+
+    public function image()
+    {
+            return $this->hasMany('App\Image')->where('profile_picture',1)->first();
     }
 
 }

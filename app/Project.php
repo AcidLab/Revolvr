@@ -83,51 +83,86 @@ class Project extends Model
         return $string ? implode(', ', $string) . ' ' : 'maintenant';
     }
 
-
-    public function shoeSizes()
+    public function country()
     {
-            return $this->hasMany('App\Projshoesize','proj_id');
+        return $this->belongsTo('App\Country');
     }
 
-    public function clothsCuts()
+    public function city()
     {
-            return $this->hasMany('App\Projclothscut','proj_id');
-    }
-
-    public function complexions()
-    {
-            return $this->hasMany('App\Projcomplexion','proj_id');
-    }
-
-    public function cuts()
-    {
-            return $this->hasMany('App\Projcut','proj_id');
-    }
-
-    public function eyesColors()
-    {
-            return $this->hasMany('App\Projeyescolor','proj_id');
+        return $this->belongsTo('App\City');
     }
 
     public function hairColors()
     {
-            return $this->hasMany('App\Projhaircolor','proj_id');
+            return $this->belongsToMany('App\HairColor');
     }
 
-    public function hairLengths()
+    public function hairStyles()
     {
-            return $this->hasMany('App\Projhairlength','proj_id');
+            return $this->belongsToMany('App\HairStyle');
     }
 
-    public function hairTypes()
+    public function eyesColors()
     {
-            return $this->hasMany('App\Projhairtype','proj_id');
+            return $this->belongsToMany('App\EyeColor');
+    }
+
+    public function tags()
+    {
+            return $this->belongsToMany('App\Tag');
+    }
+
+    public function skills()
+    {
+            return $this->belongsToMany('App\Skill');
+    }
+
+    public function brands()
+    {
+            return $this->belongsToMany('App\Brand');
+    }
+
+    public function foods()
+    {
+            return $this->belongsToMany('App\Food');
+    }
+
+    public function medias()
+    {
+            return $this->belongsToMany('App\Media');
+    }
+
+    public function influencers()
+    {
+            return $this->belongsToMany('App\Influencer');
+    }
+
+    public function likes () {
+
+        return $this->belongsToMany('App\Influencer')->where('action_id', '=',1);
+    }
+
+   
+    /*public function clothsCuts()
+    {
+            return $this->belongsToMany('App\Projclothscut','proj_id');
+    }
+
+    public function complexions()
+    {
+            return $this->belongsToMany('App\Projcomplexion','proj_id');
+    }
+
+    public function cuts()
+    {
+            return $this->belongsToMany('App\Projcut','proj_id');
     }
 
     public function homes()
     {
-            return $this->hasMany('App\Projhome','proj_id');
+            return $this->belongsToMany('App\Projhome','proj_id');
     }
-
+*/
 
 }

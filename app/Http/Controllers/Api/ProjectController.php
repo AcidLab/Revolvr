@@ -5,24 +5,119 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Project;
-use App\ProjSkill;
-use App\ProjTag;
-use App\Projectinfluencer;
+use App\HairColor;
+use App\HairStyle;
+use App\EyeColor;
+use App\Brand;
+use App\Food;
+use App\Media;
 use DateTime;
-use App\Filter;
 
-use App\Projhome;
-use App\Projhairtype;
-use App\Projhairlength;
-use App\Projhaircolor;
-use App\Projeyescolor;
-use App\Projcut;
-use App\Projcomplexion;
-use App\Projclothscut;
-use App\Projshoesize;
 
 class ProjectController extends Controller
 {
+    public function create (Request $request) {
+
+        $json = $request->input('json');
+        $hairColors = HairColor::all();
+        $hairStyles = HairStyle::all();
+        $eyesColors = EyeColor::all();
+        $brands = Brand::all();
+        $foods = Food::all();
+        $medias = Media::all();
+
+        $object = json_decode($json);
+        $project = new Project;
+        $project->title = $object->title;
+        $project->description = $object->description;
+        $project->age = $object->age;
+        $project->height = $object->height;
+        $project->country_id = $object->country_id;
+        $project->city_id = $object->city_id;
+        $project->nbr_folowers = $object->nbr_folowers;
+        $project->engagement = $object->engagement;
+        $project->user_id = $object->user_id;
+        $project->save();
+
+        while(!$project) {
+
+        }
+
+        $project->hairColors()->attach($hairColors);
+        $project->hairStyles()->attach($hairStyles);
+        $project->eyesColors()->attach($eyesColors);
+        $project->brands()->attach($brands);
+        $project->foods()->attach($foods);
+        $project->medias()->attach($medias);
+
+
+        $success['code'] = 200;
+        $success['message'] = 'l\'ajout a été fait avec succès';
+        return response()->json($success);
+
+    }
+
+    public function update (Request $request) {
+
+        $json = $request->input('json');
+        $object = json_decode($json, true);
+        $project = $object;
+        $project->save();
+        $success['code'] = 200;
+        $success['message'] = 'l\'ajout a été fait avec succès';
+        return response()->json($success);
+        
+    }
+
+    public function delete (Request $request) {
+        
+        $id = $request->input('project_id');
+        $project = Project::find($id);
+        $project->delete();
+        $success['code'] = 200;
+        $success['message'] = 'suppression du projet a été faite avec succès';
+        return response()->json($success);
+
+    }
+
+    public function bookmark (Request $request) {
+        
+        $project_id = $request->input('project_id');
+        $project = Project::find($project_id);
+        $success['code'] = 200;
+        $success['message'] = 'projets';
+        $success['users']=$project->likes;
+        
+        return response()->json($success);
+
+    }
+
+    public function index (Request $request) {
+        
+        $user_id = $request->input('user_id');
+
+        $projects = array();
+
+        $project = Project::where('user_id','=',$user_id)->with('country')->with('city')->with('hairColors')->with('hairStyles')
+        ->with('eyesColors')->with('tags')->with('skills')->with('brands')->with('foods')->with('medias')->get();
+
+        foreach ($project as $key => $value) {
+
+            $skills = array();
+            $since = $value->getTime();
+            $value->since = $since;
+            $projects[]=$value;
+        }
+        
+        $success['code'] = 200;
+        $success['message'] = 'projets';
+        $success['projects']=$projects;
+        
+        return response()->json($success);
+
+    }
+
+
      public function addProject (Request $request)
     {
         $titre = $request->input('titre');
@@ -287,7 +382,7 @@ class ProjectController extends Controller
         foreach ($project as $key => $value) {
 
             $skills = array();
-            
+            $value->hairColors;
             $since = $value->getTime();
             $value->since = $since;
             $projects[]=$value;

@@ -18,50 +18,39 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     //Route::post('addproject', 'Api\ProjectController@addProject');
 
 });
-
+//Login
 Route::post('login', 'Api\AuthController@login');
-Route::post('register/annonceur', 'Api\AuthController@registerAnn');  
-Route::post('register/influencer', 'Api\AuthController@registerInf');    
-Route::post('addproject', 'Api\ProjectController@addProject');
-Route::post('updateproject', 'Api\ProjectController@updateProject');
-Route::post('deleteproject', 'Api\ProjectController@deleteProject');
-Route::post('projects', 'Api\ProjectController@showProjectByUserId');
-Route::post('search',array('as'=>'influencers.search','uses'=>'SearchController@searchInfluencers'));
-Route::post('setFilter','Api\ProjectController@setFilter'); 
-Route::post('getBookmark','Api\ProjectController@getBookmark');
-Route::post('cancelBookmark','Api\ProjectController@cancelBookmark'); 
-Route::post('likeDislike','Api\ProjectController@likeDislike');
+Route::post('announcer/register', 'Api\AuthController@registerAnn');  
+Route::post('influencer/register', 'Api\AuthController@registerInf');   
 
+//Project
+Route::post('project/create', 'Api\ProjectController@create');
+Route::post('project/update', 'Api\ProjectController@updateProject');
+Route::post('project/delete', 'Api\ProjectController@deleteProject');
+Route::post('projects', 'Api\ProjectController@index');
+Route::post('project/influencers',array('as'=>'influencers.search','uses'=>'SearchController@searchInfluencers'));
+Route::post('project/bookmark','Api\ProjectController@bookmark');
 
-//webservice 
+//Influencer
+Route::post('influencer/undo','Api\ProjectController@cancelBookmark'); 
+Route::post('influencer/like','Api\ProjectController@likeDislike');
+Route::post('influencer/dislike','Api\ProjectController@likeDislike');
+//Route::post('influencer/bookmark/make','Api\ProjectController@likeDislike');
 
+//Config 
 Route::post('animals', 'Api\AnimalController@getAnimals');
-
 Route::post('brands', 'Api\BrandController@getBrands');
-
 Route::post('carnations', 'Api\CarnationController@getCarnations');
-
 Route::post('cities', 'Api\CityController@getCities');
-
 Route::post('countries', 'Api\CountryController@getCountries');
-
 Route::post('eye-color', 'Api\EyeColorController@getEyeColors');
-
 Route::post('foods', 'Api\FoodController@getFoods');
-
 Route::post('hair-color', 'Api\HairColorController@getHairColors');
 Route::post('hair-style', 'Api\HairStyleController@getHairStyles');
-
-
 Route::post('medias', 'Api\MediaController@getMedias');
-
 Route::post('skills', 'Api\SkillController@getSkills');
-
 Route::post('tags', 'Api\TagController@getTags');
-
-
-
-Route::get('getAll', 'Api\ConfigController@getAll');
+Route::get('config', 'Api\ConfigController@getAll');
 
 
 
