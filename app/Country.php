@@ -11,5 +11,10 @@ class Country extends Model
 
     	protected $table="countries";
     	protected $dates=['deleted_at'];
-    	public $timestamps = true;
+		public $timestamps = true;
+		
+		public function cities()
+    {
+            return $this->hasMany('App\City');
+    }
 }

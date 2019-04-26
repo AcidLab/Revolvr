@@ -140,7 +140,17 @@ class Project extends Model
 
     public function likes () {
 
-        return $this->belongsToMany('App\Influencer')->where('action_id', '=',1);
+        return $this->belongsToMany('App\Influencer')->where('action_id', '=',1)->with('country')->with('city')->with('hairColor')->with('hairStyle')->with('eyeColor')->with('tags')->with('skills')->with('brands')->with('foods')->with('medias')->with('images');
+    }
+
+    public function dislikes () {
+
+        return $this->belongsToMany('App\Influencer')->where('action_id', '=',0);
+    }
+
+    public function like_dislike () {
+
+        return $this->belongsToMany('App\Influencer')->orderBy('created_at','desc');
     }
 
    

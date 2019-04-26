@@ -91,7 +91,7 @@ class SearchController extends Controller
         $influencers_today = InfluencerProject::select('influencer_id')->where([['project_id','=',$project->id],['created_at','>=',date('Y-m-d').' 00:00:00'],['created_at','<=',date('Y-m-d').' 23:59:59']])->pluck('influencer_id');
         $influencers = Influencer::whereNotIn('id',$project_influencers)->limit($limit-count($influencers_today))->with('country')->with('city')->with('hairColor')->with('hairStyle')->with('eyeColor')->with('tags')->with('skills')->with('brands')->with('foods')->with('medias')->with('images')->get();
         $success['code'] = 200;
-        $success['message'] = 'projets';
+        $success['message'] = 'projetss';
         $success['users']=$influencers;
         
         return response()->json($success);

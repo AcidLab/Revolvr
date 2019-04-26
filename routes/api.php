@@ -25,16 +25,16 @@ Route::post('influencer/register', 'Api\AuthController@registerInf');
 
 //Project
 Route::post('project/create', 'Api\ProjectController@create');
-Route::post('project/update', 'Api\ProjectController@updateProject');
-Route::post('project/delete', 'Api\ProjectController@deleteProject');
+Route::post('project/update', 'Api\ProjectController@update');
+Route::post('project/delete', 'Api\ProjectController@delete');
 Route::post('projects', 'Api\ProjectController@index');
 Route::post('project/influencers',array('as'=>'influencers.search','uses'=>'SearchController@searchInfluencers'));
 Route::post('project/bookmark','Api\ProjectController@bookmark');
 
 //Influencer
-Route::post('influencer/undo','Api\ProjectController@cancelBookmark'); 
-Route::post('influencer/like','Api\ProjectController@likeDislike');
-Route::post('influencer/dislike','Api\ProjectController@likeDislike');
+Route::post('influencer/undo','Api\ProjectController@undo'); 
+Route::post('influencer/like','Api\ProjectController@like_dislike');
+Route::post('influencer/dislike','Api\ProjectController@like_dislike');
 //Route::post('influencer/bookmark/make','Api\ProjectController@likeDislike');
 
 //Config 

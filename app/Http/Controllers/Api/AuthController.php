@@ -54,7 +54,7 @@
             else {
                 
                 $success['code'] = 302;
-                $success['retour'] = 'Email introuvable';
+                $success['message'] = 'Email introuvable';
                 return response()->json($success);
                 
             }
@@ -68,7 +68,7 @@
                 
                 $user = Auth::guard($guard)->user();
                 $success['code'] = 200;
-                $success['retour'] = 'Login effectué avec succées';
+                $success['message'] = 'Login effectué avec succées';
                 $success['token'] =  $user->createToken('revolver')->accessToken;
                 $success['kind'] = $guard;
                 $success['user']=$user;
