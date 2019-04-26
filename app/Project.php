@@ -95,57 +95,57 @@ class Project extends Model
 
     public function hairColors()
     {
-            return $this->belongsToMany('App\HairColor');
+            return $this->belongsToMany('App\HairColor')->orderBy('created_at','desc');
     }
 
     public function hairStyles()
     {
-            return $this->belongsToMany('App\HairStyle');
+            return $this->belongsToMany('App\HairStyle')->orderBy('created_at','desc');
     }
 
     public function eyesColors()
     {
-            return $this->belongsToMany('App\EyeColor');
+            return $this->belongsToMany('App\EyeColor')->orderBy('created_at','desc');
     }
 
     public function tags()
     {
-            return $this->belongsToMany('App\Tag');
+            return $this->belongsToMany('App\Tag')->orderBy('created_at','desc');
     }
 
     public function skills()
     {
-            return $this->belongsToMany('App\Skill');
+            return $this->belongsToMany('App\Skill')->orderBy('created_at','desc');
     }
 
     public function brands()
     {
-            return $this->belongsToMany('App\Brand');
+            return $this->belongsToMany('App\Brand')->orderBy('created_at','desc');
     }
 
     public function foods()
     {
-            return $this->belongsToMany('App\Food');
+            return $this->belongsToMany('App\Food')->orderBy('created_at','desc');
     }
 
     public function medias()
     {
-            return $this->belongsToMany('App\Media');
+            return $this->belongsToMany('App\Media')->orderBy('created_at','desc');
     }
 
     public function influencers()
     {
-            return $this->belongsToMany('App\Influencer');
+            return $this->belongsToMany('App\Influencer')->orderBy('created_at','desc');
     }
 
     public function likes () {
 
-        return $this->belongsToMany('App\Influencer')->where('action_id', '=',1)->with('country')->with('city')->with('hairColor')->with('hairStyle')->with('eyeColor')->with('tags')->with('skills')->with('brands')->with('foods')->with('medias')->with('images');
+        return $this->belongsToMany('App\Influencer')->orderBy('created_at','desc')->where('action_id', '=',1)->with('country')->with('city')->with('hairColor')->with('hairStyle')->with('eyeColor')->with('tags')->with('skills')->with('brands')->with('foods')->with('medias')->with('images');
     }
 
     public function dislikes () {
 
-        return $this->belongsToMany('App\Influencer')->where('action_id', '=',0);
+        return $this->belongsToMany('App\Influencer')->where('action_id', '=',0)->orderBy('created_at','desc');
     }
 
     public function like_dislike () {

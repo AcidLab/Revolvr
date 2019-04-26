@@ -229,8 +229,7 @@ class ProjectController extends Controller
 
         $id = $request->input('project_id');
         $project = Project::find($id);
-        $project->like_dislike()->first()->delete();
-
+        $project->like_dislike()->first()->pivot->delete();
         $success['code'] = 200;
         $success['message'] = 'Suppression validé';
         return response()->json($success);

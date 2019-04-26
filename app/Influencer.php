@@ -69,32 +69,32 @@ class Influencer extends Authenticatable
 
     public function tags()
     {
-            return $this->belongsToMany('App\Tag');
+            return $this->belongsToMany('App\Tag')->orderBy('created_at','desc');
     }
 
     public function skills()
     {
-            return $this->belongsToMany('App\Skill');
+            return $this->belongsToMany('App\Skill')->orderBy('created_at','desc');
     }
 
     public function brands()
     {
-            return $this->belongsToMany('App\Brand');
+            return $this->belongsToMany('App\Brand')->orderBy('created_at','desc');
     }
 
     public function foods()
     {
-            return $this->belongsToMany('App\Food');
+            return $this->belongsToMany('App\Food')->orderBy('created_at','desc');
     }
 
     public function medias()
     {
-            return $this->belongsToMany('App\Media');
+            return $this->belongsToMany('App\Media')->orderBy('created_at','desc');
     }
 
     public function images()
     {
-            return $this->hasMany('App\Image');
+            return $this->hasMany('App\Image')->orderBy('created_at','desc');
     }
 
     public function image()
