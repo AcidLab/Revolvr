@@ -101,55 +101,55 @@
              if (!$input['name'])
             {
              $retour['message']='le champ name est vide';
-             $retour['code']='300';
+             $retour['code']=300;
              return response()->json($retour);
             }
             if (!$input['email'])
             {
              $retour['message']='le champ email est vide';
-             $retour['code']='300';
+             $retour['code']=300;
              return response()->json($retour);
             }
             if (!$input['password'])
             {
              $retour['message']='le champ password est vide';
-             $retour['code']='300';
+             $retour['code']=300;
              return response()->json($retour);
             }
             if (!$input['fname'])
             {
              $retour['message']='le champ fname est vide';
-             $retour['code']='300';
+             $retour['code']=300;
              return response()->json($retour);
             }
             if (!$input['position'])
             {
              $retour['message']='le champ position est vide';
-             $retour['code']='300';
+             $retour['code']=300;
              return response()->json($retour);
             }
             if (!$input['tva'])
             {
              $retour['message']='le champ tva est vide';
-             $retour['code']='300';
+             $retour['code']=300;
              return response()->json($retour);
             }
             if (!$input['societe'])
             {
              $retour['message']='le champ societe est vide';
-             $retour['code']='300';
+             $retour['code']=300;
              return response()->json($retour);
             }
             if (!$input['phone'])
             {
              $retour['message']='le champ phone est vide';
-             $retour['code']='300';
+             $retour['code']=300;
              return response()->json($retour);
             }
             if (!$input['image'])
             {
              $retour['message']='le champ image est vide';
-             $retour['code']='300';
+             $retour['code']=300;
              return response()->json($retour);
             }
             
@@ -171,10 +171,12 @@
             
             while(!$user->id) {}
             
-            
-            $success=$user;
-            $success['token'] =  $user->createToken('revolver')->accessToken;
-            return response()->json(['success'=>$success], $this->successStatus);
+            $retour['message']='le champ name est vide';
+            $retour['code']=300;
+            $retour['kind'] = 'announcer';
+            $retour['user']=$user;
+            $retour['token'] =  $user->createToken('revolver')->accessToken;
+            return response()->json($retour);
         }
         
         public function registerInf(Request $request)

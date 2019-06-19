@@ -102,4 +102,39 @@ class Influencer extends Authenticatable
             return $this->hasMany('App\Image')->where('profile_picture',1)->first();
     }
 
+    public function carnation()
+    {
+            return $this->belongsTo('App\Carnation')->orderBy('created_at','desc');
+    }
+
+    public function size()
+    {
+            return $this->belongsTo('App\Size')->orderBy('created_at','desc');
+    }
+
+    public function posts()
+    {
+            return $this->hasMany('App\Post')->orderBy('created_at','desc');
+    }
+
+    public function houses()
+    {
+            return $this->belongsToMany('App\House')->orderBy('created_at','desc');
+    }
+
+    public function beauties()
+    {
+            return $this->belongsToMany('App\Beauty')->orderBy('created_at','desc');
+    }
+
+    public function animals()
+    {
+            return $this->belongsToMany('App\Animal')->orderBy('created_at','desc');
+    }
+
+    public function friends()
+    {
+            return $this->belongsToMany('App\Influencer','influencer_influencer', 'influencer_id', 'friend_id')->orderBy('created_at','desc');
+    }
+
 }

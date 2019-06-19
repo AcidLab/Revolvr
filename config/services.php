@@ -13,7 +13,12 @@ return [
     | to have a conventional place to find your various credentials.
     |
     */
-
+    'instagram' => [
+        'client_id' => env('INSTAGRAM_KEY'),
+        'client_secret' => env('INSTAGRAM_SECRET'),
+        'redirect' => env('INSTAGRAM_REDIRECT_URI')
+    ],
+    
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),

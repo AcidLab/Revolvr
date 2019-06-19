@@ -20,10 +20,10 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Nom</label>
-	                    			<input type="text" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" required name="name" placeholder="Nom" value="{{old('name') ? old('name') : $influencer->name}}" />
-                    				@if($errors->has('name'))
+	                    			<input type="text" class="form-control {{ $errors->has('lname') ? ' is-invalid' : '' }}" required name="lname" placeholder="Nom" value="{{old('lname') ? old('lname') : $influencer->lname}}" />
+                    				@if($errors->has('lname'))
                                                  <span class="invalid-feedback" role="alert">
-                                                 <strong>{{ $errors->first('name') }}</strong>
+                                                 <strong>{{ $errors->first('lname') }}</strong>
                                                  </span>
                                                 @endif
 	                    		</div>
@@ -99,7 +99,12 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Pays</label>
-	                    			<input type="text" name="country" required class="form-control {{ $errors->has('country') ? ' is-invalid' : '' }}" value="{{old('country') ? old('country') : $influencer->country}}" placeholder="Pays" />
+	                    			<select class="form-control js-example-basic-single {{ $errors->has('country') ? ' is-invalid' : '' }}"  name="country" required >
+	                    				@foreach($countries as $row)
+	                    					
+	                    						<option value="{{$row->id}}" {{$influencer->country->id == $row->id ? 'selected' : ''}}>{{$row->label}}</option>
+	                    				@endforeach
+	                    			</select>
 	                    			@if($errors->has('country'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('country') }}</strong>
@@ -110,7 +115,12 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Ville</label>
-	                    			<input type="text" name="city" required class="form-control {{ $errors->has('city') ? ' is-invalid' : '' }}" value="{{old('city') ? old('city') : $influencer->city}}" placeholder="Ville" />
+									<select class="form-control js-example-basic-single {{ $errors->has('country') ? ' is-invalid' : '' }}"  name="city" required >
+	                    				@foreach($cities as $row)
+	                    					
+	                    						<option value="{{$row->id}}" {{$influencer->city->id == $row->id ? 'selected' : ''}}>{{$row->departement_nom}}</option>
+	                    				@endforeach
+	                    			</select>
 	                    			@if($errors->has('city'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('city') }}</strong>
@@ -136,8 +146,7 @@
 	                    			<label class="control-label">Media</label>
 	                    			<select class="js-example-basic-multiple form-control  {{ $errors->has('media') ? ' is-invalid' : '' }}" name="media[]"  multiple="multiple">
 	                    				@foreach($medias as $row)
-	                    					<option value="{{$row->id}}">{{$row->label}}</option>
-	                    					
+										<option value="{{$row->id}}" @if( in_array($row->id,$oldmedias)) selected="selected" @endif>{{$row->label}}</option>
 	                    				@endforeach
 	                    			</select>
 	                    			@if($errors->has('media'))
@@ -152,8 +161,8 @@
 	                    			<label class="control-label">Skills</label>
 	                    			<select class="form-control js-example-basic-multiple {{ $errors->has('skills') ? ' is-invalid' : '' }}" multiple="multiple" name="skills[]"  >
 	                    				@foreach($skills as $row)
-	                    					<option value="{{$row->id}}">{{$row->label}}</option>
-	                    				@endforeach
+	                    					<option value="{{$row->id}}" @if( in_array($row->id,$oldskills)) selected="selected" @endif>{{$row->label}}</option>
+										@endforeach
 	                    			</select>
 	                    			@if($errors->has('skills'))
                                                  <span class="invalid-feedback" role="alert">
@@ -167,7 +176,7 @@
 	                    			<label class="control-label">Tags</label>
 	                    			<select class="form-control js-example-basic-multiple {{ $errors->has('tags') ? ' is-invalid' : '' }}" multiple="multiple" name="tags[]"  >
 	                    				@foreach($tags as $row)
-	                    					<option value="{{$row->id}}">{{$row->label}}</option>
+										<option value="{{$row->id}}" @if( in_array($row->id,$oldtags)) selected="selected" @endif>{{$row->label}}</option>
 	                    				@endforeach
 	                    			</select>
 	                    			@if($errors->has('tags'))
@@ -185,11 +194,7 @@
 	                    			<label class="control-label">Carnation</label>
 	                    			<select class="form-control js-example-basic-single {{ $errors->has('complexion') ? ' is-invalid' : '' }}"  name="complexion" required >
 	                    				@foreach($carnations as $row)
-	                    					@if(old('complexion'))
-	                    						<option value="{{$row->id}}" {{old('complexion') == $row->id ? 'selected' : ''}}>{{$row->label}}</option>
-	                    					@else
-	                    						<option value="{{$row->id}}" {{$influencer->complexion == $row->id ? 'selected' : ''}}>{{$row->label}}</option>
-	                    					@endif
+	                    						<option value="{{$row->id}}" {{$influencer->carnation_id == $row->id ? 'selected' : ''}}>{{$row->label}}</option>
 	                    				@endforeach
 	                    			</select>
 	                    			@if($errors->has('complexion'))
@@ -240,17 +245,7 @@
 	                    	</div>
 	                    </div>
 	                     <div class="row">
-	                    	<div class="col-md-4">
-	                    		<div class="form-group">
-	                    			<label class="control-label">Longueure des cheveux</label>
-	                    			<input type="text" name="hair_length" required class="form-control {{ $errors->has('hair_length') ? ' is-invalid' : '' }}" value="{{old('hair_length') ? old('hair_length') : $influencer->hair_length}}" placeholder="Longueure des cheveux" />
-	                    			@if($errors->has('hair_length'))
-                                                 <span class="invalid-feedback" role="alert">
-                                                 <strong>{{ $errors->first('hair_length') }}</strong>
-                                                 </span>
-                                                @endif
-	                    		</div>
-	                    	</div>
+	                    	
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Couleur des yeux</label>
@@ -273,8 +268,8 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Taille</label>
-	                    			<input type="text" name="cut" required class="form-control {{ $errors->has('cut') ? ' is-invalid' : '' }}" value="{{old('cut') ? old('cut') : $influencer->cut}}" placeholder="Taille" />
-	                    			@if($errors->has('cut'))
+	                    			<input type="text" name="height" required class="form-control {{ $errors->has('height') ? ' is-invalid' : '' }}" value="{{old('height') ? old('height') : $influencer->height}}" placeholder="Taille" />
+	                    			@if($errors->has('height'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('cut') }}</strong>
                                                  </span>
@@ -286,7 +281,14 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Taille des vêtements</label>
-	                    			<input type="text" name="clothes_cut" required class="form-control {{ $errors->has('clothes_cut') ? ' is-invalid' : '' }}" value="{{old('clothes_cut') ? old('clothes_cut') : $influencer->clothes_cut}}" placeholder="Taille" />
+
+									<select class="form-control js-example-basic-single {{ $errors->has('size') ? ' is-invalid' : '' }}"  name="clothes_cut" required >
+	                    				@foreach($sizes as $row)
+	                    					
+	                    						<option value="{{$row->id}}" {{$influencer->size->id == $row->id ? 'selected' : ''}}>{{$row->label}}</option>
+	                    				@endforeach
+	                    			</select>
+
 	                    			@if($errors->has('clothes_cut'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('clothes_cut') }}</strong>
@@ -310,7 +312,7 @@
 	                    			<label class="control-label">Animeaux domestiques</label>
 	                    			<select class="form-control js-example-basic-multiple {{ $errors->has('animals') ? ' is-invalid' : '' }}" multiple="multiple" name="animals[]"  >
 	                    				@foreach($animals as $row)
-	                    					<option value="{{$row->id}}">{{$row->label}}</option>
+										<option value="{{$row->id}}" @if( in_array($row->id,$oldanimals)) selected="selected" @endif>{{$row->label}}</option>
 	                    				@endforeach
 	                    			</select>
 	                    			@if($errors->has('animals'))
@@ -327,7 +329,7 @@
 	                    			<label class="control-label">Food</label>
 	                    			<select class="form-control js-example-basic-multiple {{ $errors->has('food') ? ' is-invalid' : '' }}" name="food[]"  multiple="multiple">
 	                    				@foreach($foods as $row)
-	                    					<option value="{{$row->id}}" >{{$row->label}}</option>
+										<option value="{{$row->id}}" @if( in_array($row->id,$oldfoods)) selected="selected" @endif>{{$row->label}}</option>
 	                    				@endforeach
 	                    			</select>
 	                    			@if($errors->has('food'))
@@ -351,7 +353,11 @@
 	                    	<div class="col-md-3">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Beauté</label>
-	                    			<input type="text" name="beauty" required class="form-control {{ $errors->has('beauty') ? ' is-invalid' : '' }}" value="{{old('beauty') ? old('beauty') : $influencer->beauty}}" placeholder="Beauté" />
+									<select class="form-control js-example-basic-multiple {{ $errors->has('beauty') ? ' is-invalid' : '' }}" name="beauties[]"  multiple="multiple">
+	                    				@foreach($beauties as $row)
+										<option value="{{$row->id}}" @if( in_array($row->id,$oldbeauties)) selected="selected" @endif>{{$row->label}}</option>
+	                    				@endforeach
+	                    			</select>
 	                    			@if($errors->has('beauty'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('beauty') }}</strong>
@@ -362,7 +368,12 @@
 	                    	<div class="col-md-3">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Maison</label>
-	                    			<input type="text" name="home" required class="form-control {{ $errors->has('home') ? ' is-invalid' : '' }}" value="{{old('home') ? old('home') : $influencer->home}}" placeholder="Maison" />
+									<select class="form-control js-example-basic-multiple {{ $errors->has('home') ? ' is-invalid' : '' }}" name="homes[]"  multiple="multiple">
+	                    				@foreach($beauties as $row)
+										<option value="{{$row->id}}" @if( in_array($row->id,$oldbeauties)) selected="selected" @endif>{{$row->label}}</option>
+	                    				@endforeach
+	                    			</select>
+
 	                    			@if($errors->has('home'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('home') }}</strong>
@@ -375,7 +386,11 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Friends</label>
-	                    			<input type="text" name="friends" required class="form-control {{ $errors->has('friends') ? ' is-invalid' : '' }}" value="{{old('friends') ? old('friends') : $influencer->friends}}" placeholder="Friends" />
+									<select class="form-control js-example-basic-multiple {{ $errors->has('friends') ? ' is-invalid' : '' }}" name="friends[]"  multiple="multiple">
+	                    				@foreach($friends as $row)
+										<option value="{{$row->id}}" @if( in_array($row->id,$oldfriends)) selected="selected" @endif>{{$row->fname}}&nbsp;{{$row->lname}}</option>
+	                    				@endforeach
+	                    			</select>
 	                    			@if($errors->has('friends'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('friends') }}</strong>
@@ -388,7 +403,8 @@
 	                    			<label class="control-label">Love brand</label>
 	                    			<select class="form-control js-example-basic-multiple {{ $errors->has('love_brand') ? ' is-invalid' : '' }}" name="love_brand[]"  multiple="multiple">
 	                    				@foreach($brands as $row)
-	                    					<option value="{{$row->id}}">{{$row->label}}</option>
+										<option value="{{$row->id}}" @if( in_array($row->id,$oldsbrands)) selected="selected" @endif>{{$row->label}}</option>
+
 	                    				@endforeach
 	                    			</select>
 	                    			@if($errors->has('love_brand'))

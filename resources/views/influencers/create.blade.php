@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('css-includes')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
+
 @endsection
 @section('content')
 <div class="row">
@@ -10,19 +11,23 @@
                 <h4 class="m-b-0 text-white">Informations</h4>
             </div>
             <div class="card-body">
-            	<form action="{{route('influencers.store')}}" method="POST">
+            	<form action="{{route('influencers.store')}}" method="POST" enctype="multipart/form-data">
             		<div class="form-body">
 	                    <h3 class="card-title">Informations de l'influenceur</h3>
 	                    <hr>
 	                    @csrf
 	                    <div class="row">
+						<div class="col-md-12">
+						<input id="input-id" class="file" data-preview-file-type="text" multiple type="file" accept="image/*" name="images[]" required>
+						</div>
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
+								
 	                    			<label class="control-label">Nom</label>
-	                    			<input type="text" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" required name="name" placeholder="Nom" value="{{old('name')}}" />
-                    				@if($errors->has('name'))
+	                    			<input type="text" class="form-control {{ $errors->has('lname') ? ' is-invalid' : '' }}" required name="lname" placeholder="Nom" value="{{old('lname')}}" />
+                    				@if($errors->has('lname'))
                                                  <span class="invalid-feedback" role="alert">
-                                                 <strong>{{ $errors->first('name') }}</strong>
+                                                 <strong>{{ $errors->first('lname') }}</strong>
                                                  </span>
                                                 @endif
 	                    		</div>
@@ -93,7 +98,14 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Pays</label>
-	                    			<input type="text" name="country" required class="form-control {{ $errors->has('country') ? ' is-invalid' : '' }}" value="{{old('country')}}" placeholder="Pays" />
+
+									<select class="form-control js-example-basic-single {{ $errors->has('country') ? ' is-invalid' : '' }}"  name="country" required >
+	                    				@foreach($countries as $row)
+	                    					
+	                    						<option value="{{$row->id}}">{{$row->label}}</option>
+	                    				@endforeach
+	                    			</select>
+
 	                    			@if($errors->has('country'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('country') }}</strong>
@@ -104,7 +116,14 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Ville</label>
-	                    			<input type="text" name="city" required class="form-control {{ $errors->has('city') ? ' is-invalid' : '' }}" value="{{old('city')}}" placeholder="Ville" />
+									<select class="form-control js-example-basic-single {{ $errors->has('city') ? ' is-invalid' : '' }}"  name="city" required >
+
+									@foreach($cities as $row)
+	                    					
+	                    						<option value="{{$row->id}}">{{$row->departement_nom}}</option>
+	                    				@endforeach
+										</select>
+
 	                    			@if($errors->has('city'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('city') }}</strong>
@@ -222,17 +241,7 @@
 	                    	</div>
 	                    </div>
 	                     <div class="row">
-	                    	<div class="col-md-4">
-	                    		<div class="form-group">
-	                    			<label class="control-label">Longueure de cheveux</label>
-	                    			<input type="text" name="hair_length" required class="form-control {{ $errors->has('hair_length') ? ' is-invalid' : '' }}" value="{{old('hair_length')}}" placeholder="Longueure des cheveux" />
-	                    			@if($errors->has('hair_length'))
-                                                 <span class="invalid-feedback" role="alert">
-                                                 <strong>{{ $errors->first('hair_length') }}</strong>
-                                                 </span>
-                                                @endif
-	                    		</div>
-	                    	</div>
+	                    	
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Couleur des yeux</label>
@@ -251,10 +260,10 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Taille</label>
-	                    			<input type="text" name="cut" required class="form-control {{ $errors->has('cut') ? ' is-invalid' : '' }}" value="{{old('cut')}}" placeholder="Taille" />
-	                    			@if($errors->has('cut'))
+	                    			<input type="text" name="height" required class="form-control {{ $errors->has('height') ? ' is-invalid' : '' }}" value="{{old('height')}}" placeholder="Taille" />
+	                    			@if($errors->has('height'))
                                                  <span class="invalid-feedback" role="alert">
-                                                 <strong>{{ $errors->first('cut') }}</strong>
+                                                 <strong>{{ $errors->first('height') }}</strong>
                                                  </span>
                                                 @endif
 	                    		</div>
@@ -264,7 +273,14 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Taille des vêtements</label>
-	                    			<input type="text" name="clothes_cut" required class="form-control {{ $errors->has('clothes_cut') ? ' is-invalid' : '' }}" value="{{old('clothes_cut')}}" placeholder="Taille" />
+
+									<select class="form-control js-example-basic-single {{ $errors->has('size') ? ' is-invalid' : '' }}"  name="clothes_cut" required >
+	                    				@foreach($sizes as $row)
+	                    					
+	                    						<option value="{{$row->id}}">{{$row->label}}</option>
+	                    				@endforeach
+	                    			</select>
+
 	                    			@if($errors->has('clothes_cut'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('clothes_cut') }}</strong>
@@ -286,7 +302,7 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Animeaux domestiques</label>
-	                    			<select class="form-control js-example-basic-multiple {{ $errors->has('animals') ? ' is-invalid' : '' }}" multiple="multiple" name="animals[]" required >
+	                    			<select class="form-control js-example-basic-multiple {{ $errors->has('animals') ? ' is-invalid' : '' }}" multiple="multiple" name="animals[]" >
 	                    				@foreach($animals as $row)
 	                    					<option value="{{$row->id}}">{{$row->label}}</option>
 	                    				@endforeach
@@ -303,7 +319,7 @@
 	                    	<div class="col-md-3">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Food</label>
-	                    			<select class="form-control js-example-basic-multiple {{ $errors->has('food') ? ' is-invalid' : '' }}" name="food[]" required multiple="multiple">
+	                    			<select class="form-control js-example-basic-multiple {{ $errors->has('food') ? ' is-invalid' : '' }}" name="food[]" multiple="multiple">
 	                    				@foreach($foods as $row)
 	                    					<option value="{{$row->id}}" >{{$row->label}}</option>
 	                    				@endforeach
@@ -329,7 +345,11 @@
 	                    	<div class="col-md-3">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Beauté</label>
-	                    			<input type="text" name="beauty" required class="form-control {{ $errors->has('beauty') ? ' is-invalid' : '' }}" value="{{old('beauty')}}" placeholder="Beauté" />
+									<select class="form-control js-example-basic-multiple {{ $errors->has('beauties') ? ' is-invalid' : '' }}" multiple="multiple" name="beauties[]" >
+	                    				@foreach($beauties as $row)
+	                    					<option value="{{$row->id}}">{{$row->label}}</option>
+	                    				@endforeach
+	                    			</select>
 	                    			@if($errors->has('beauty'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('beauty') }}</strong>
@@ -340,8 +360,12 @@
 	                    	<div class="col-md-3">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Maison</label>
-	                    			<input type="text" name="home" required class="form-control {{ $errors->has('home') ? ' is-invalid' : '' }}" value="{{old('home')}}" placeholder="Maison" />
-	                    			@if($errors->has('home'))
+									<select class="form-control js-example-basic-multiple {{ $errors->has('houses') ? ' is-invalid' : '' }}" multiple="multiple" name="houses[]" >
+	                    				@foreach($houses as $row)
+	                    					<option value="{{$row->id}}">{{$row->label}}</option>
+	                    				@endforeach
+	                    			</select>
+	                    			@if($errors->has('houses'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('home') }}</strong>
                                                  </span>
@@ -353,7 +377,13 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Friends</label>
-	                    			<input type="text" name="friends" required class="form-control {{ $errors->has('friends') ? ' is-invalid' : '' }}" value="{{old('friends')}}" placeholder="Friends" />
+
+									<select class="form-control js-example-basic-multiple {{ $errors->has('friends') ? ' is-invalid' : '' }}" multiple="multiple" name="friends[]" max="6>
+	                    				@foreach($friends as $row)
+	                    					<option value="{{$row->id}}">{{$row->fname}}&nbsp;{{$row->lname}}</option>
+	                    				@endforeach
+	                    			</select>
+
 	                    			@if($errors->has('friends'))
                                                  <span class="invalid-feedback" role="alert">
                                                  <strong>{{ $errors->first('friends') }}</strong>
@@ -364,7 +394,7 @@
 	                    	<div class="col-md-4">
 	                    		<div class="form-group">
 	                    			<label class="control-label">Love brand</label>
-	                    			<select class="form-control js-example-basic-multiple {{ $errors->has('love_brand') ? ' is-invalid' : '' }}" name="love_brand[]" required multiple="multiple">
+	                    			<select class="form-control js-example-basic-multiple {{ $errors->has('love_brand') ? ' is-invalid' : '' }}" name="love_brand[]" multiple="multiple">
 	                    				@foreach($brands as $row)
 	                    					<option value="{{$row->id}}">{{$row->label}}</option>
 	                    				@endforeach
@@ -483,4 +513,29 @@
     $('.js-example-basic-single').select2();
 });
 </script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+<!-- if using RTL (Right-To-Left) orientation, load the RTL CSS file after fileinput.css by uncommenting below -->
+<!-- link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput-rtl.min.css" media="all" rel="stylesheet" type="text/css" /-->
+<!-- piexif.min.js is needed for auto orienting image files OR when restoring exif data in resized images and when you 
+    wish to resize images before upload. This must be loaded before fileinput.min.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/plugins/piexif.min.js" type="text/javascript"></script>
+<!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview. 
+    This must be loaded before fileinput.min.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/plugins/sortable.min.js" type="text/javascript"></script>
+<!-- purify.min.js is only needed if you wish to purify HTML content in your preview for 
+    HTML files. This must be loaded before fileinput.min.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/plugins/purify.min.js" type="text/javascript"></script>
+<!-- popper.min.js below is needed if you use bootstrap 4.x. You can also use the bootstrap js 
+   3.3.x versions without popper.min.js. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<!-- bootstrap.min.js below is needed if you wish to zoom and preview file content in a detail modal
+    dialog. bootstrap 4.x is supported. You can also use the bootstrap js 3.3.x versions. -->
+<!-- the main fileinput plugin file -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
+<!-- optionally if you need a theme like font awesome theme you can include it as mentioned below -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.js"></script>
+<!-- optionally if you need translation for your language then include  locale file as mentioned below -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/locales/(lang).js"></script>
 @endsection

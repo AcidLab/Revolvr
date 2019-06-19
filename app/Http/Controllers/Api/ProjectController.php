@@ -27,7 +27,7 @@ class ProjectController extends Controller
         $projects = array();
 
         $projects = Project::where('user_id','=',$user_id)->with('country')->with('city')->with('hairColors')->with('hairStyles')
-        ->with('eyesColors')->with('tags')->with('skills')->with('brands')->with('foods')->with('medias')->get();
+        ->with('eyesColors')->with('tags')->with('skills')->with('brands')->with('foods')->with('medias')->with('likes')->get();
 
         
         $success['code'] = 200;
@@ -83,9 +83,15 @@ class ProjectController extends Controller
             $skills[] = $key['id'];
         }
 
+        foreach ($object['tags'] as $key) {
+            
+            $model = Tag::find($key['id']);
+            $tags[] = $key['id'];
+        }
+
 
         $project->skills()->attach($skills);
-
+        $project->tags()->attach($tags);
 
         $success['code'] = 200;
         $success['message'] = 'l\'ajout a été fait avec succès';
@@ -217,7 +223,7 @@ class ProjectController extends Controller
         $project_id = $request->input('project_id');
         $project = Project::find($project_id);
         $success['code'] = 200;
-        $success['message'] = 'projets';
+        $success['message'] = 'projects';
         $success['users']=$project->likes;
         
         return response()->json($success);
@@ -249,6 +255,26 @@ class ProjectController extends Controller
         }
         else {
             $project->dislikes()->save($user,['action_id'=>0]);
+        }
+        //$project->save();
+
+        $success['code'] = 200;
+        $success['message'] = 'opération validé';
+        return response()->json($success);
+    }
+
+    public function delete_bookmark (Request $request)
+    {
+        $project_id = $request->input('project_id');
+        $influencer_id = $request->input('influencer_id');
+        $action_id = $request->input('like_dislike');
+        $project = Project::find($project_id);
+        $user = Influencer::find($influencer_id);
+        if ($action_id ==1) {
+            $project->likes()->save($user,['action_id'=>1]);
+        }
+        else {
+            $project->dislikes()->sync($user,['action_id'=>0]);
         }
         //$project->save();
 

@@ -1,0 +1,44 @@
+
+                                                                                
+ Command "websocket:close" is not defined.                                      
+                                                                                
+
+ Do you want to run "websocket:init" instead?  (yes/no) [no]:
+ > 
+
+                                                                                
+ Command "websocket:exit" is not defined.                                       
+                                                                                
+
+ Do you want to run "websocket:init" instead?  (yes/no) [no]:
+ > 
+   RuntimeException  : Failed to listen on "tcp://0.0.0.0:8090": Address already in use
+
+  at /Applications/MAMP/htdocs/Web/Intern/Laravel/Revolvr/vendor/react/socket/src/TcpServer.php:164
+    160|             \STREAM_SERVER_BIND | \STREAM_SERVER_LISTEN,
+    161|             \stream_context_create(array('socket' => $context))
+    162|         );
+    163|         if (false === $this->master) {
+  > 164|             throw new \RuntimeException('Failed to listen on "' . $uri . '": ' . $errstr, $errno);
+    165|         }
+    166|         \stream_set_blocking($this->master, 0);
+    167| 
+    168|         $this->resume();
+
+  Exception trace:
+
+  1   React\Socket\TcpServer::__construct("tcp://0.0.0.0:8090", Object(React\EventLoop\StreamSelectLoop), [])
+      /Applications/MAMP/htdocs/Web/Intern/Laravel/Revolvr/vendor/react/socket/src/Server.php:36
+
+  2   React\Socket\Server::__construct("0.0.0.0:8090", Object(React\EventLoop\StreamSelectLoop))
+      /Applications/MAMP/htdocs/Web/Intern/Laravel/Revolvr/vendor/cboden/ratchet/src/Ratchet/Server/IoServer.php:59
+
+  Please use the argument -v to see more details.
+
+                                                                
+  There are no commands defined in the "websockets" namespace.  
+                                                                
+  Did you mean this?                                            
+      websocket                                                 
+                                                                
+

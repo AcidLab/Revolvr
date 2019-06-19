@@ -42,7 +42,7 @@
                                             @foreach($acceptedDemands as $row)
                                                 <tr>
                                                     <td style="text-align: center;">{{str_pad($row->id, 6, '0' , STR_PAD_LEFT)}}</td>
-                                                    <td style="text-align: center;">{{$row->name}}</td>
+                                                    <td style="text-align: center;">{{$row->lname}}</td>
                                                     <td style="text-align: center;">{{$row->fname}}</td>
                                                     <td style="text-align: center;">{{$row->email}}</td>
                                                     <td style="text-align: center;">{{$row->phone}}</td>

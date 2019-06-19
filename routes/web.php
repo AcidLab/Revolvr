@@ -31,7 +31,11 @@ Route::get('recoverinfluencer/{id}',array('as'=>'influencer.recover','uses'=>'In
 Auth::routes();
 Route::get('logout',array('as'=>'logout','uses'=>'Auth\LoginController@logout'));
 
-
+Route::get('/instagram', 'InstagramController@redirectToInstagramProvider');
+ 
+Route::get('/instagram/callback', 'InstagramController@handleProviderInstagramCallback');
+Route::get('/search', 'AppController@search');
+Route::get('/index', 'AppController@index');
 
 //Settings Routes
 Route::resource('medias','MediasController');

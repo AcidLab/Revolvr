@@ -89,7 +89,7 @@ class SearchController extends Controller
         $project = Project::find($request->input('project_id'));
         $project_influencers = InfluencerProject::select('influencer_id')->where('project_id','=',$project->id)->pluck('influencer_id');
         $influencers_today = InfluencerProject::select('influencer_id')->where([['project_id','=',$project->id],['created_at','>=',date('Y-m-d').' 00:00:00'],['created_at','<=',date('Y-m-d').' 23:59:59']])->pluck('influencer_id');
-        $influencers = Influencer::whereNotIn('id',$project_influencers)->limit($limit-count($influencers_today))->with('country')->with('city')->with('hairColor')->with('hairStyle')->with('eyeColor')->with('tags')->with('skills')->with('brands')->with('foods')->with('medias')->with('images')->get();
+        $influencers = Influencer::whereNotIn('id',$project_influencers)->limit($limit-count($influencers_today))->with('country')->with('posts')->with('size')->with('carnation')->with('city')->with('hairColor')->with('hairStyle')->with('eyeColor')->with('tags')->with('skills')->with('brands')->with('foods')->with('medias')->with('images')->get();
         $success['code'] = 200;
         $success['message'] = 'projetss';
         $success['users']=$influencers;

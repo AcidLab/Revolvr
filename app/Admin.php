@@ -24,4 +24,8 @@ class Admin extends Authenticatable
         protected $hidden = [
             'password', 'remember_token',
         ];
+
+        public function instagram(){
+            return $this->hasOne(Instagram::class, 'user_id', 'id');
+        }
 }
